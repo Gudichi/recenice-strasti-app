@@ -47,8 +47,9 @@ function WelcomeContent() {
       setError(error.message)
     } else if (user) {
       setSuccess('Uspješno ste se prijavili!')
+      // Redirect to dashboard with full page reload to ensure session is picked up by middleware
       setTimeout(() => {
-        router.push('/')
+        window.location.href = '/'
       }, 1000)
     }
     

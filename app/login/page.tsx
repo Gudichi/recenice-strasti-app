@@ -52,13 +52,13 @@ export default function LoginPage() {
     
     if (error) {
       setError(error.message)
-    } else if (user) {
-      setSuccess('Uspješno ste se prijavili!')
-      // Redirect to dashboard
-      setTimeout(() => {
-        router.push('/')
-      }, 1000)
-    }
+        } else if (user) {
+          setSuccess('Uspješno ste se prijavili!')
+          // Redirect to dashboard with full page reload to ensure session is picked up by middleware
+          setTimeout(() => {
+            window.location.href = '/'
+          }, 1000)
+        }
     
     setLoading(false)
   }
