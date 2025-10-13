@@ -13,13 +13,13 @@ export function BrandHeader() {
   return (
     <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <Container>
-        <div className="flex items-center justify-between py-5">
+        <div className="flex items-center justify-between py-5 lg:py-6">
           {/* Logo */}
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-display text-2xl font-bold">R</span>
+          <div className="flex items-center space-x-4 lg:space-x-6">
+            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-white font-display text-2xl lg:text-3xl font-bold">R</span>
             </div>
-            <h1 className="font-display text-3xl text-brand-accent font-semibold tracking-tight">
+            <h1 className="font-display text-3xl lg:text-4xl xl:text-5xl text-brand-accent font-semibold tracking-tight">
               Rečenice Strasti
             </h1>
           </div>
@@ -27,8 +27,8 @@ export function BrandHeader() {
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar className="cursor-pointer ring-2 ring-brand-secondary/30 hover:ring-brand-primary/50 transition-all duration-300 hover:scale-105">
-                <AvatarFallback className="bg-gradient-to-br from-brand-secondary to-brand-primary text-white font-semibold text-lg">
+              <Avatar className="cursor-pointer ring-2 ring-brand-secondary/30 hover:ring-brand-primary/50 transition-all duration-300 hover:scale-105 w-10 h-10 lg:w-12 lg:h-12">
+                <AvatarFallback className="bg-gradient-to-br from-brand-secondary to-brand-primary text-white font-semibold text-lg lg:text-xl">
                   KG
                 </AvatarFallback>
               </Avatar>

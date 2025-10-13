@@ -31,8 +31,8 @@ export default async function ModulePage({ params }: ModulePageProps) {
     <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="py-12">
-        <Container maxWidth="xl">
+      <main className="py-12 lg:py-20">
+        <Container maxWidth="6xl">
           <BreadcrumbNav items={breadcrumbItems} />
           
           {/* Module Header */}
@@ -69,7 +69,7 @@ export default async function ModulePage({ params }: ModulePageProps) {
               <div className="w-32 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full mx-auto"></div>
             </div>
             
-            <div className="grid gap-8 max-w-5xl mx-auto">
+            <div className="grid gap-8 max-w-6xl mx-auto lg:gap-10">
               {moduleData.lessons.map((lesson, index) => (
                 <div 
                   key={lesson.slug}

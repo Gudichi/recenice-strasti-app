@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-brand-bg via-white to-brand-secondary/5">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-16 lg:px-8 lg:py-24">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Form */}

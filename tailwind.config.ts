@@ -60,33 +60,6 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      typography: {
-        h1: {
-          fontSize: "2.5rem",
-          fontWeight: "700",
-          lineHeight: "1.2",
-          letterSpacing: "-0.02em",
-        },
-        h2: {
-          fontSize: "2rem", 
-          fontWeight: "600",
-          lineHeight: "1.3",
-          letterSpacing: "-0.01em",
-        },
-        h3: {
-          fontSize: "1.5rem",
-          fontWeight: "600", 
-          lineHeight: "1.4",
-        },
-        body: {
-          fontSize: "1rem",
-          lineHeight: "1.7",
-        },
-        large: {
-          fontSize: "1.125rem",
-          lineHeight: "1.6",
-        },
-      },
       spacing: {
         "18": "4.5rem",
         "88": "22rem",

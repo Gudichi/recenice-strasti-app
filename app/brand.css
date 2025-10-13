@@ -1,0 +1,42 @@
+/* Brand Colors - Explicit CSS for production */
+@layer base {
+  /* Background Colors */
+  .bg-brand-primary { background-color: #EF798A !important; }
+  .bg-brand-secondary { background-color: #F7A9A8 !important; }
+  .bg-brand-accent { background-color: #64113F !important; }
+  .bg-brand-bg { background-color: #FDFDFD !important; }
+  .bg-brand-cta { background-color: #1C7C7D !important; }
+
+  /* Text Colors */
+  .text-brand-primary { color: #EF798A !important; }
+  .text-brand-secondary { color: #F7A9A8 !important; }
+  .text-brand-accent { color: #64113F !important; }
+  .text-brand-bg { color: #FDFDFD !important; }
+  .text-brand-cta { color: #1C7C7D !important; }
+
+  /* Border Colors */
+  .border-brand-primary { border-color: #EF798A !important; }
+  .border-brand-secondary { border-color: #F7A9A8 !important; }
+  .border-brand-accent { border-color: #64113F !important; }
+  .border-brand-cta { border-color: #1C7C7D !important; }
+
+  /* Hover States */
+  .hover\:bg-brand-primary:hover { background-color: #EF798A !important; }
+  .hover\:bg-brand-secondary:hover { background-color: #F7A9A8 !important; }
+  .hover\:bg-brand-cta:hover { background-color: #1C7C7D !important; }
+  .hover\:text-brand-primary:hover { color: #EF798A !important; }
+  .hover\:text-brand-accent:hover { color: #64113F !important; }
+  .hover\:border-brand-primary:hover { border-color: #EF798A !important; }
+  .hover\:border-brand-cta:hover { border-color: #1C7C7D !important; }
+
+  /* Gradient Colors */
+  .from-brand-primary { --tw-gradient-from: #EF798A !important; }
+  .to-brand-secondary { --tw-gradient-to: #F7A9A8 !important; }
+  .from-brand-secondary { --tw-gradient-from: #F7A9A8 !important; }
+  .to-brand-primary { --tw-gradient-to: #EF798A !important; }
+
+  /* Ring Colors */
+  .ring-brand-primary { --tw-ring-color: #EF798A !important; }
+  .ring-brand-secondary { --tw-ring-color: #F7A9A8 !important; }
+  .ring-brand-cta { --tw-ring-color: #1C7C7D !important; }
+}

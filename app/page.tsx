@@ -16,8 +16,8 @@ export default function Dashboard() {
     <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="py-16">
-        <Container maxWidth="xl">
+      <main className="py-16 lg:py-24">
+        <Container maxWidth="6xl">
           {/* Hero Card */}
           <Card className="mb-20 bg-gradient-to-br from-brand-bg via-white to-brand-secondary/8 border-brand-primary/10 shadow-xl overflow-hidden">
             <CardContent className="p-12 lg:p-16 text-center relative">
@@ -96,11 +96,11 @@ export default function Dashboard() {
 
           {/* Modules Section */}
           <div className="mb-8">
-            <SectionTitle as="h2" className="text-center mb-12">
+            <SectionTitle as="h2" className="text-center mb-16 lg:mb-20">
               Rečenice Strasti program
             </SectionTitle>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-10">
               {modules.map((module, index) => (
                 <ModuleCard
                   key={module.slug}

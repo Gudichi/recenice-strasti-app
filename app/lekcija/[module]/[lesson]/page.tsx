@@ -53,8 +53,8 @@ export default async function LessonPage({ params }: LessonPageProps) {
     <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="py-12">
-        <Container maxWidth="2xl">
+      <main className="py-12 lg:py-20">
+        <Container maxWidth="4xl">
           <BreadcrumbNav items={breadcrumbItems} />
           
           <Card className="bg-white/90 backdrop-blur-sm border-brand-primary/10 shadow-2xl overflow-hidden">

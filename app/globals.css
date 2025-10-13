@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Colors */
+  /* Brand Colors - Explicit definitions */
   --brand-primary: #EF798A;
   --brand-secondary: #F7A9A8;
   --brand-accent: #64113F;
   --brand-bg: #FDFDFD;
   --brand-cta: #1C7C7D;
+  
+  /* Tailwind Brand Color Mappings */
+  --color-brand-primary: #EF798A;
+  --color-brand-secondary: #F7A9A8;
+  --color-brand-accent: #64113F;
+  --color-brand-bg: #FDFDFD;
+  --color-brand-cta: #1C7C7D;
 
   /* Light Theme Variables */
   --background: #FDFDFD;
@@ -143,4 +150,40 @@ html {
 /* Custom focus styles for accessibility */
 .focus-visible {
   @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+}
+
+/* Brand colors are now in brand.css */
+
+/* Desktop-specific optimizations */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1280px;
+  }
+  
+  /* Larger text on desktop */
+  .text-responsive-xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .text-responsive-2xl {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  
+  .text-responsive-3xl {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+  
+  /* Desktop spacing */
+  .desktop-padding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  /* Desktop grid improvements */
+  .desktop-grid {
+    gap: 2rem;
+  }
 }
