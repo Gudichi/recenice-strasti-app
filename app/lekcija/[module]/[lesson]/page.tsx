@@ -1,6 +1,7 @@
 import { BrandHeader } from '@/components/brand-header'
 import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { Button } from '@/components/ui/button'
+import { Container } from '@/components/ui/container'
+import { CTAButton } from '@/components/ui/cta-button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { getLesson, getModule, routes, getAllModules } from '@/lib/content'
@@ -50,49 +51,87 @@ export default async function LessonPage({ params }: LessonPageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+      <main className="py-12">
+        <Container maxWidth="2xl">
           <BreadcrumbNav items={breadcrumbItems} />
           
-          <Card>
-            <CardContent className="p-8">
-              <div className="prose prose-invert max-w-none">
-                <h1 className="text-3xl font-bold mb-6">{lesson.title}</h1>
-                
-                <div className="whitespace-pre-wrap text-base leading-relaxed">
-                  {lesson.content}
+          <Card className="bg-white/80 backdrop-blur-sm border-brand-primary/20 shadow-xl">
+            <CardContent className="p-8 lg:p-12">
+              {/* Lesson Header */}
+              <div className="text-center mb-12">
+                <h1 className="font-display text-4xl lg:text-5xl text-brand-accent mb-6">
+                  {lesson.title}
+                </h1>
+                <div className="w-32 h-1 bg-brand-secondary rounded-full mx-auto"></div>
+              </div>
+              
+              {/* Lesson Content */}
+              <div className="prose prose-lg max-w-none">
+                <div className="whitespace-pre-wrap text-gray-700 leading-relaxed space-y-6">
+                  {lesson.content.split('\n\n').map((paragraph, index) => {
+                    if (paragraph.startsWith('# ')) {
+                      return (
+                        <h2 key={index} className="font-display text-3xl text-brand-accent mt-12 mb-6">
+                          {paragraph.replace('# ', '')}
+                        </h2>
+                      )
+                    } else if (paragraph.startsWith('## ')) {
+                      return (
+                        <h3 key={index} className="font-semibold text-xl text-brand-primary mt-8 mb-4">
+                          {paragraph.replace('## ', '')}
+                        </h3>
+                      )
+                    } else if (paragraph.startsWith('- ')) {
+                      const listItems = paragraph.split('\n- ').map(item => item.replace(/^-\s*/, ''))
+                      return (
+                        <ul key={index} className="list-disc list-inside space-y-2 text-gray-600">
+                          {listItems.map((item, itemIndex) => (
+                            <li key={itemIndex}>{item}</li>
+                          ))}
+                        </ul>
+                      )
+                    } else if (paragraph.trim()) {
+                      return (
+                        <p key={index} className="text-gray-700 leading-relaxed">
+                          {paragraph}
+                        </p>
+                      )
+                    }
+                    return null
+                  })}
                 </div>
               </div>
               
-              <Separator className="my-8" />
+              <Separator className="my-12" />
               
-              <div className="flex justify-between items-center">
-                <Link href={routes.module(moduleSlug)}>
-                  <Button variant="outline">
-                    ← Nazad na modul
-                  </Button>
-                </Link>
+              {/* Navigation */}
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <CTAButton asChild variant="outline">
+                  <Link href={routes.module(moduleSlug)}>
+                    ← Natrag na modul
+                  </Link>
+                </CTAButton>
                 
                 {nextLessonHref ? (
-                  <Link href={nextLessonHref}>
-                    <Button>
+                  <CTAButton asChild size="xl">
+                    <Link href={nextLessonHref}>
                       {nextLessonText} →
-                    </Button>
-                  </Link>
+                    </Link>
+                  </CTAButton>
                 ) : (
-                  <Link href={routes.home}>
-                    <Button>
+                  <CTAButton asChild size="xl">
+                    <Link href={routes.home}>
                       Završi program →
-                    </Button>
-                  </Link>
+                    </Link>
+                  </CTAButton>
                 )}
               </div>
             </CardContent>
           </Card>
-        </div>
+        </Container>
       </main>
     </div>
   )

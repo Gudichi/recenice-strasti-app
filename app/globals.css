@@ -1,37 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card: #1a1a1a;
-  --card-foreground: #ededed;
-  --popover: #1a1a1a;
-  --popover-foreground: #ededed;
-  --primary: #ffffff;
-  --primary-foreground: #0a0a0a;
-  --secondary: #262626;
-  --secondary-foreground: #ededed;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #262626;
-  --accent-foreground: #ededed;
+  /* Brand Colors */
+  --brand-primary: #EF798A;
+  --brand-secondary: #F7A9A8;
+  --brand-accent: #64113F;
+  --brand-bg: #FDFDFD;
+  --brand-cta: #1C7C7D;
+
+  /* Light Theme Variables */
+  --background: #FDFDFD;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #1C7C7D;
+  --primary-foreground: #ffffff;
+  --secondary: #EF798A;
+  --secondary-foreground: #ffffff;
+  --muted: #f8f9fa;
+  --muted-foreground: #6b7280;
+  --accent: #F7A9A8;
+  --accent-foreground: #111111;
   --destructive: #ef4444;
-  --destructive-foreground: #ededed;
-  --border: #262626;
-  --input: #262626;
-  --ring: #ffffff;
-  --radius: 0.5rem;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #1C7C7D;
+  --radius: 1rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
+  --font-display: var(--font-playfair);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+/* Typography Classes */
+.font-display {
+  font-family: var(--font-playfair), serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand-secondary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-primary);
+}
+
+/* Focus Styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+/* Button Hover Effects */
+.btn-hover {
+  @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
 }

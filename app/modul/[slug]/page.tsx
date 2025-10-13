@@ -1,6 +1,9 @@
 import { BrandHeader } from '@/components/brand-header'
 import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Container } from '@/components/ui/container'
+import { SectionTitle } from '@/components/ui/section-title'
+import { CTAButton } from '@/components/ui/cta-button'
+import { LessonCard } from '@/components/ui/lesson-card'
 import { getModule, routes } from '@/lib/content'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -24,41 +27,60 @@ export default async function ModulePage({ params }: ModulePageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+      <main className="py-12">
+        <Container maxWidth="xl">
           <BreadcrumbNav items={breadcrumbItems} />
           
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">{moduleData.title}</h1>
-            <p className="text-muted-foreground text-lg">
+          {/* Module Header */}
+          <div className="text-center mb-16">
+            <SectionTitle as="h1" className="text-4xl lg:text-5xl mb-6">
+              {moduleData.title}
+            </SectionTitle>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
               {moduleData.description}
             </p>
+            <CTAButton asChild size="xl">
+              <Link href={routes.lesson(slug, moduleData.lessons[0].slug)}>
+                Započni modul →
+              </Link>
+            </CTAButton>
           </div>
 
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Lekcije</h2>
+          {/* Lessons Section */}
+          <div className="space-y-8">
+            <div className="text-center">
+              <h2 className="font-display text-3xl text-brand-accent mb-4">
+                Lekcije u ovom modulu
+              </h2>
+              <div className="w-24 h-1 bg-brand-secondary rounded-full mx-auto"></div>
+            </div>
             
-            <div className="grid gap-4">
-              {moduleData.lessons.map((lesson) => (
-                <Link key={lesson.slug} href={routes.lesson(slug, lesson.slug)}>
-                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                    <CardHeader>
-                      <CardTitle className="text-lg">
-                        {lesson.title}
-                      </CardTitle>
-                      <CardDescription>
-                        Kliknite za početak lekcije
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
+            <div className="grid gap-6 max-w-4xl mx-auto">
+              {moduleData.lessons.map((lesson, index) => (
+                <LessonCard
+                  key={lesson.slug}
+                  title={lesson.title}
+                  description="Kliknite za početak lekcije"
+                  href={routes.lesson(slug, lesson.slug)}
+                  duration="15 min"
+                  isCompleted={index === 0} // First lesson completed for demo
+                />
               ))}
             </div>
           </div>
-        </div>
+
+          {/* Back to Program */}
+          <div className="text-center mt-16">
+            <CTAButton asChild variant="outline">
+              <Link href={routes.home}>
+                ← Natrag na program
+              </Link>
+            </CTAButton>
+          </div>
+        </Container>
       </main>
     </div>
   )

@@ -1,8 +1,9 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { CTAButton } from '@/components/ui/cta-button'
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { SectionTitle } from '@/components/ui/section-title'
 import { useRouter } from 'next/navigation'
 import { useState, Suspense } from 'react'
 
@@ -20,21 +21,23 @@ function WelcomeContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Dobrodošli!</CardTitle>
-          <CardDescription>
-            Poslali smo ti kod na <strong>{email}</strong>
+    <div className="min-h-screen bg-gradient-to-br from-brand-bg via-white to-brand-secondary/5 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm border-brand-primary/20 shadow-xl">
+        <CardHeader className="text-center pb-6">
+          <SectionTitle as="h1" className="text-3xl mb-4" showUnderline={false}>
+            Dobrodošla!
+          </SectionTitle>
+          <CardDescription className="text-gray-600 text-base">
+            Poslali smo ti kod na <strong className="text-brand-accent">{email}</strong>
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground text-center">
-            Unesi kod za ulaz u program Rečenice Strasti
+        <CardContent className="space-y-6">
+          <p className="text-sm text-gray-600 text-center">
+            Unesi verifikacijski kod za ulaz u program Rečenice Strasti
           </p>
           
-          <div>
-            <label htmlFor="code" className="block text-sm font-medium mb-2">
+          <div className="space-y-2">
+            <label htmlFor="code" className="block text-sm font-medium text-gray-700">
               Verifikacijski kod
             </label>
             <Input
@@ -43,25 +46,27 @@ function WelcomeContent() {
               placeholder="123456"
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              className="h-12 text-base border-gray-300 focus:border-brand-cta focus:ring-brand-cta/20 text-center tracking-widest"
             />
           </div>
           
-          <Button 
+          <CTAButton 
             onClick={handleVerifyCode}
             className="w-full"
             disabled={!code}
+            size="lg"
           >
             Potvrdi kod
-          </Button>
+          </CTAButton>
           
           <div className="text-center">
-            <Button 
+            <CTAButton 
               variant="link" 
               onClick={() => router.push('/login')}
               className="text-sm"
             >
               Promijeni email adresu
-            </Button>
+            </CTAButton>
           </div>
         </CardContent>
       </Card>
@@ -71,7 +76,7 @@ function WelcomeContent() {
 
 export default function WelcomePage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-brand-bg flex items-center justify-center">Loading...</div>}>
       <WelcomeContent />
     </Suspense>
   )
