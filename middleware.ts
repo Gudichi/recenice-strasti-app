@@ -38,31 +38,30 @@ export async function middleware(req: NextRequest) {
   // Get current session
   const { data: { session } } = await supabase.auth.getSession()
 
-  // Protected routes that require authentication
-  const protectedRoutes = ['/', '/modul', '/lekcija']
-  const isProtectedRoute = protectedRoutes.some(route => 
-    req.nextUrl.pathname.startsWith(route)
-  )
-
   // Public routes that don't require authentication
   const publicRoutes = ['/login', '/welcome']
   const isPublicRoute = publicRoutes.some(route => 
     req.nextUrl.pathname.startsWith(route)
   )
 
+  // Protected routes that require authentication
+  const protectedRoutes = ['/', '/modul', '/lekcija']
+  const isProtectedRoute = protectedRoutes.some(route => 
+    req.nextUrl.pathname.startsWith(route)
+  )
+
+  // Allow access to public routes
+  if (isPublicRoute) {
+    // Redirect authenticated users from login to dashboard
+    if (req.nextUrl.pathname === '/login' && session) {
+      return NextResponse.redirect(new URL('/', req.url))
+    }
+    return response
+  }
+
   // Redirect unauthenticated users from protected routes to login
   if (isProtectedRoute && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
-  }
-
-  // Redirect authenticated users from login to dashboard
-  if (req.nextUrl.pathname === '/login' && session) {
-    return NextResponse.redirect(new URL('/', req.url))
-  }
-
-  // Allow access to /welcome for OTP verification
-  if (req.nextUrl.pathname === '/welcome') {
-    return response
   }
 
   return response
