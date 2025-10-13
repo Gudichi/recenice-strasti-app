@@ -52,8 +52,8 @@ export async function middleware(req: NextRequest) {
 
   // Allow access to public routes
   if (isPublicRoute) {
-    // Redirect authenticated users from login to dashboard
-    if (req.nextUrl.pathname === '/login' && session) {
+    // Redirect authenticated users from login/welcome to dashboard
+    if ((req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/welcome') && session) {
       return NextResponse.redirect(new URL('/', req.url))
     }
     return response
