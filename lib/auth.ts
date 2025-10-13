@@ -19,7 +19,7 @@ export async function sendOTP(email: string): Promise<{ error: AuthError | null 
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `https://app.recenicestrasti.com/welcome`,
+        emailRedirectTo: `${window.location.origin}/welcome`,
       }
     })
 
