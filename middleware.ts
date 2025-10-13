@@ -35,8 +35,8 @@ export async function middleware(req: NextRequest) {
     }
   )
 
-  // Get current session
-  const { data: { session } } = await supabase.auth.getSession()
+  // Get current user
+  const { data: { user } } = await supabase.auth.getUser()
 
   // Public routes that don't require authentication
   const publicRoutes = ['/login', '/welcome']
@@ -53,14 +53,14 @@ export async function middleware(req: NextRequest) {
   // Allow access to public routes
   if (isPublicRoute) {
     // Redirect authenticated users from login/welcome to dashboard
-    if ((req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/welcome') && session) {
+    if ((req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/welcome') && user) {
       return NextResponse.redirect(new URL('/', req.url))
     }
     return response
   }
 
   // Redirect unauthenticated users from protected routes to login
-  if (isProtectedRoute && !session) {
+  if (isProtectedRoute && !user) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
