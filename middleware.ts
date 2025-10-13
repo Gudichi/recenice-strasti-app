@@ -44,6 +44,12 @@ export async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith(route)
   )
 
+  // Public routes that don't require authentication
+  const publicRoutes = ['/login', '/welcome']
+  const isPublicRoute = publicRoutes.some(route => 
+    req.nextUrl.pathname.startsWith(route)
+  )
+
   // Redirect unauthenticated users from protected routes to login
   if (isProtectedRoute && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
@@ -52,6 +58,11 @@ export async function middleware(req: NextRequest) {
   // Redirect authenticated users from login to dashboard
   if (req.nextUrl.pathname === '/login' && session) {
     return NextResponse.redirect(new URL('/', req.url))
+  }
+
+  // Allow access to /welcome for OTP verification
+  if (req.nextUrl.pathname === '/welcome') {
+    return response
   }
 
   return response
