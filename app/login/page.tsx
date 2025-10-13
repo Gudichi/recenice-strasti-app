@@ -6,27 +6,68 @@ import { Input } from '@/components/ui/input'
 import { SectionTitle } from '@/components/ui/section-title'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { sendOTP, verifyOTP } from '@/lib/auth'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
   const [step, setStep] = useState<'email' | 'code'>('email')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
   const router = useRouter()
 
-  const handleSendCode = () => {
-    if (email) {
-      // TODO: Implement actual email sending
-      console.log('Sending code to:', email)
+  const handleSendCode = async () => {
+    if (!email) {
+      setError('Molimo unesite email adresu')
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+    setSuccess(null)
+
+    const { error } = await sendOTP(email)
+    
+    if (error) {
+      setError(error.message)
+    } else {
+      setSuccess('Kod je poslan na vašu email adresu')
       setStep('code')
     }
+    
+    setLoading(false)
   }
 
-  const handleVerifyCode = () => {
-    if (code) {
-      // TODO: Implement actual code verification
-      console.log('Verifying code:', code)
-      router.push('/')
+  const handleVerifyCode = async () => {
+    if (!code || !email) {
+      setError('Molimo unesite kod')
+      return
     }
+
+    setLoading(true)
+    setError(null)
+
+    const { user, error } = await verifyOTP(email, code)
+    
+    if (error) {
+      setError(error.message)
+    } else if (user) {
+      setSuccess('Uspješno ste se prijavili!')
+      // Redirect to dashboard
+      setTimeout(() => {
+        router.push('/')
+      }, 1000)
+    }
+    
+    setLoading(false)
+  }
+
+  const handleBackToEmail = () => {
+    setStep('email')
+    setCode('')
+    setError(null)
+    setSuccess(null)
   }
 
   return (
@@ -64,13 +105,23 @@ export default function LoginPage() {
                           className="h-12 text-base border-gray-300 focus:border-brand-cta focus:ring-brand-cta/20"
                         />
                       </div>
+                      {error && (
+                        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-200">
+                          {error}
+                        </div>
+                      )}
+                      {success && (
+                        <div className="text-green-600 text-sm bg-green-50 p-3 rounded-lg border border-green-200">
+                          {success}
+                        </div>
+                      )}
                       <CTAButton 
                         onClick={handleSendCode}
                         className="w-full"
-                        disabled={!email}
+                        disabled={!email || loading}
                         size="lg"
                       >
-                        Pošalji kod
+                        {loading ? 'Šalje se...' : 'Pošalji kod'}
                       </CTAButton>
                     </>
                   ) : (
@@ -88,11 +139,22 @@ export default function LoginPage() {
                           className="h-12 text-base border-gray-300 focus:border-brand-cta focus:ring-brand-cta/20 text-center tracking-widest"
                         />
                       </div>
+                      {error && (
+                        <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-200">
+                          {error}
+                        </div>
+                      )}
+                      {success && (
+                        <div className="text-green-600 text-sm bg-green-50 p-3 rounded-lg border border-green-200">
+                          {success}
+                        </div>
+                      )}
                       <div className="flex gap-3">
                         <CTAButton 
                           variant="outline"
-                          onClick={() => setStep('email')}
+                          onClick={handleBackToEmail}
                           className="flex-1"
+                          disabled={loading}
                           size="lg"
                         >
                           Nazad
@@ -100,10 +162,10 @@ export default function LoginPage() {
                         <CTAButton 
                           onClick={handleVerifyCode}
                           className="flex-1"
-                          disabled={!code}
+                          disabled={!code || loading}
                           size="lg"
                         >
-                          Potvrdi
+                          {loading ? 'Provjerava...' : 'Potvrdi'}
                         </CTAButton>
                       </div>
                     </>

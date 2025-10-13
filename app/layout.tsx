@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import "./brand.css";
+import { AuthProvider } from "@/components/providers/auth-provider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${playfair.variable} font-sans bg-brand-bg text-[#111] antialiased`}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
