@@ -1,25 +1,26 @@
 import { BrandHeader } from '@/components/brand-header'
 import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getModule, routes } from '@/lib/content'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface ModulePageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function ModulePage({ params }: ModulePageProps) {
-  const module = getModule(params.slug)
+export default async function ModulePage({ params }: ModulePageProps) {
+  const { slug } = await params
+  const moduleData = getModule(slug)
   
-  if (!module) {
+  if (!moduleData) {
     notFound()
   }
 
   const breadcrumbItems = [
-    { label: module.title }
+    { label: moduleData.title }
   ]
 
   return (
@@ -31,9 +32,9 @@ export default function ModulePage({ params }: ModulePageProps) {
           <BreadcrumbNav items={breadcrumbItems} />
           
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">{module.title}</h1>
+            <h1 className="text-3xl font-bold mb-2">{moduleData.title}</h1>
             <p className="text-muted-foreground text-lg">
-              {module.description}
+              {moduleData.description}
             </p>
           </div>
 
@@ -41,8 +42,8 @@ export default function ModulePage({ params }: ModulePageProps) {
             <h2 className="text-xl font-semibold">Lekcije</h2>
             
             <div className="grid gap-4">
-              {module.lessons.map((lesson, index) => (
-                <Link key={lesson.slug} href={routes.lesson(module.slug, lesson.slug)}>
+              {moduleData.lessons.map((lesson) => (
+                <Link key={lesson.slug} href={routes.lesson(slug, lesson.slug)}>
                   <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                     <CardHeader>
                       <CardTitle className="text-lg">

@@ -1,36 +1,193 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rečenice Strasti - Članstvo Web App
 
-## Getting Started
+Mini members-only web app za program Rečenice Strasti, napravljen s Next.js 15, TypeScript, i shadcn/ui komponentama.
 
-First, run the development server:
+## 🚀 Brzo pokretanje
 
 ```bash
+# Instaliraj dependencies
+npm install
+
+# Pokreni development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikacija će biti dostupna na [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Struktura projekta
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+├── app/                    # Next.js App Router
+│   ├── page.tsx           # Dashboard
+│   ├── login/             # Prijava stranica
+│   ├── welcome/           # Dobrodošlica stranica
+│   ├── modul/[slug]/      # Modul stranice
+│   └── lekcija/[module]/[lesson]/ # Lekcija stranice
+├── components/            # React komponente
+│   ├── ui/               # shadcn/ui komponente
+│   ├── brand-header.tsx  # Header s avatarom
+│   └── breadcrumb-nav.tsx # Navigacijski krušni put
+├── content/              # Sadržaj (MDX/MD fajlovi)
+│   └── modules/          # Moduli i lekcije
+├── lib/                  # Utility funkcije
+│   ├── content.ts        # Content management
+│   ├── routes.ts         # Type-safe routing
+│   └── utils.ts          # Helper funkcije
+└── netlify.toml          # Netlify konfiguracija
+```
 
-## Learn More
+## 🎨 Značajke
 
-To learn more about Next.js, take a look at the following resources:
+- **Dark UI** - Tamna tema po defaultu
+- **TypeScript** - Potpuna type safety
+- **Responsive** - Radi na svim uređajima
+- **Accessibility** - WCAG kompatibilno
+- **Croatian Language** - Potpuna podrška za hrvatski jezik
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📱 Stranice
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Dashboard (`/`)
+- Dobrodošnica s imenom korisnika
+- Globalni progress bar (42% placeholder)
+- Link na "Lekcija na kojoj si stala"
+- Grid s 7 modula (4 osnovna + 3 bonus)
 
-## Deploy on Vercel
+### Prijava (`/login`)
+- Email input + "Pošalji kod" dugme
+- OTP kod input (placeholder logika)
+- Automatski redirect na dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dobrodošlica (`/welcome`)
+- Poruka "Poslali smo ti kod na {email}"
+- OTP kod input
+- Link za promjenu email adrese
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Modul (`/modul/[slug]`)
+- Breadcrumb navigacija
+- Lista lekcija kao kartice
+- Click za otvaranje lekcije
+
+### Lekcija (`/lekcija/[module]/[lesson]`)
+- Breadcrumb navigacija
+- Markdown sadržaj
+- "Prijeđi na sljedeću lekciju" dugme
+- Automatska navigacija između lekcija/modula
+
+## 🔧 Development
+
+```bash
+# Development server
+npm run dev
+
+# Build za produkciju
+npm run build
+
+# Start produkcijski server
+npm start
+
+# Linting
+npm run lint
+```
+
+## 📦 Dependencies
+
+### Glavne
+- **Next.js 15** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - UI komponente
+
+### UI Komponente
+- `@radix-ui/react-*` - Headless UI primitives
+- `lucide-react` - Ikonice
+- `clsx` & `tailwind-merge` - Conditional styling
+
+## 🌐 Deploy na Netlify
+
+### UI Path (Preporučeno)
+
+1. **Konektuj GitHub repo:**
+   - Idi na [Netlify](https://netlify.com)
+   - Klikni "New site from Git"
+   - Izaberi GitHub i repo `recenice-strasti-app`
+
+2. **Build settings:**
+   - **Build command:** `npm run build`
+   - **Publish directory:** `.next`
+   - **Node version:** 18
+
+3. **Environment variables:**
+   - Dodaj sve potrebne env varijable (kada budu potrebne)
+
+4. **Deploy:**
+   - Klikni "Deploy site"
+   - Netlify će automatski buildati i deployovati
+
+### CLI Path (Opcijski)
+
+```bash
+# Instaliraj Netlify CLI
+npm install -g netlify-cli
+
+# Login u Netlify
+netlify login
+
+# Initialize projekt
+netlify init
+
+# Deploy
+netlify deploy --build
+```
+
+## 🔐 GitHub Setup (Manual)
+
+Pošto GitHub CLI nije dostupan, izvršite ove korake ručno:
+
+```bash
+# Kreiraj novi repo na GitHub.com
+# Naziv: recenice-strasti-app
+# Public
+# Bez README, .gitignore, ili license
+
+# Dodaj remote i push
+git remote add origin https://github.com/YOUR_USERNAME/recenice-strasti-app.git
+git branch -M main
+git push -u origin main
+```
+
+Zamijenite `YOUR_USERNAME` sa vašim GitHub username-om.
+
+## 📋 Što još treba napraviti
+
+### Kratkoročno (TODO)
+- [ ] **Supabase Auth** - Implementirati pravu autentifikaciju
+- [ ] **Database** - Kreirati tablice za korisnike, progres, modul
+- [ ] **Email OTP** - Integrirati pravi email servis
+- [ ] **User Progress** - Spremiti napredak u bazi
+- [ ] **Environment Variables** - Dodati .env.example
+
+### Dugoročno (Future)
+- [ ] **Stripe Integration** - Plaćanje članstva
+- [ ] **Admin Panel** - Upravljanje sadržajem
+- [ ] **Analytics** - Tracking napretka
+- [ ] **Push Notifications** - Podsjećanja
+- [ ] **Mobile App** - React Native verzija
+
+## 🎯 Production Checklist
+
+Prije deployment-a na produkciju:
+
+- [ ] Dodati sve environment varijable
+- [ ] Testirati sve rute i funkcionalnosti
+- [ ] Optimizirati slike i performance
+- [ ] Setup error tracking (Sentry)
+- [ ] Setup analytics (Google Analytics)
+- [ ] Backup strategija za bazu podataka
+
+## 📞 Support
+
+Za pitanja ili probleme, otvorite issue na GitHub repo ili kontaktirajte development tim.
+
+---
+
+**Napravljeno s ❤️ za Rečenice Strasti program**

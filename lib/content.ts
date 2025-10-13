@@ -1,7 +1,8 @@
-import fs from 'fs'
-import path from 'path'
-import { remark } from 'remark'
-import html from 'remark-html'
+// TODO: Add MDX/Markdown processing later
+// import fs from 'fs'
+// import path from 'path'
+// import { remark } from 'remark'
+// import html from 'remark-html'
 
 export interface Lesson {
   slug: string
@@ -157,10 +158,13 @@ export function getModule(slug: string): Module | undefined {
 }
 
 export function getLesson(moduleSlug: string, lessonSlug: string): Lesson | undefined {
-  const module = getModule(moduleSlug)
-  return module?.lessons.find(l => l.slug === lessonSlug)
+  const moduleData = getModule(moduleSlug)
+  return moduleData?.lessons.find(l => l.slug === lessonSlug)
 }
 
 export function getAllModules(): Module[] {
   return modules
 }
+
+// Re-export routes for convenience
+export { routes } from './routes'

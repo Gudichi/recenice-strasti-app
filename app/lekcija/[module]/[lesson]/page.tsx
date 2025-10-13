@@ -8,32 +8,33 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface LessonPageProps {
-  params: {
+  params: Promise<{
     module: string
     lesson: string
-  }
+  }>
 }
 
-export default function LessonPage({ params }: LessonPageProps) {
-  const lesson = getLesson(params.module, params.lesson)
-  const module = getModule(params.module)
+export default async function LessonPage({ params }: LessonPageProps) {
+  const { module: moduleSlug, lesson: lessonSlug } = await params
+  const lesson = getLesson(moduleSlug, lessonSlug)
+  const moduleData = getModule(moduleSlug)
   const allModules = getAllModules()
   
-  if (!lesson || !module) {
+  if (!lesson || !moduleData) {
     notFound()
   }
 
   // Find next lesson
-  const currentModuleIndex = allModules.findIndex(m => m.slug === params.module)
-  const currentLessonIndex = module.lessons.findIndex(l => l.slug === params.lesson)
+  const currentModuleIndex = allModules.findIndex(m => m.slug === moduleSlug)
+  const currentLessonIndex = moduleData.lessons.findIndex(l => l.slug === lessonSlug)
   
   let nextLessonHref: string | null = null
   let nextLessonText = 'Nazad na modul'
   
-  if (currentLessonIndex < module.lessons.length - 1) {
+  if (currentLessonIndex < moduleData.lessons.length - 1) {
     // Next lesson in same module
-    const nextLesson = module.lessons[currentLessonIndex + 1]
-    nextLessonHref = routes.lesson(params.module, nextLesson.slug)
+    const nextLesson = moduleData.lessons[currentLessonIndex + 1]
+    nextLessonHref = routes.lesson(moduleSlug, nextLesson.slug)
     nextLessonText = 'Prijeđi na sljedeću lekciju'
   } else if (currentModuleIndex < allModules.length - 1) {
     // First lesson of next module
@@ -44,7 +45,7 @@ export default function LessonPage({ params }: LessonPageProps) {
   }
 
   const breadcrumbItems = [
-    { label: module.title, href: routes.module(params.module) },
+    { label: moduleData.title, href: routes.module(moduleSlug) },
     { label: lesson.title }
   ]
 
@@ -69,7 +70,7 @@ export default function LessonPage({ params }: LessonPageProps) {
               <Separator className="my-8" />
               
               <div className="flex justify-between items-center">
-                <Link href={routes.module(params.module)}>
+                <Link href={routes.module(moduleSlug)}>
                   <Button variant="outline">
                     ← Nazad na modul
                   </Button>

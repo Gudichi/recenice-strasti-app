@@ -3,14 +3,13 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useState, Suspense } from 'react'
 
-export default function WelcomePage() {
+function WelcomeContent() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const email = searchParams.get('email') || 'vas@email.com'
   const [code, setCode] = useState('')
+  const email = 'vas@email.com' // TODO: Get from search params
 
   const handleVerifyCode = () => {
     if (code) {
@@ -67,5 +66,13 @@ export default function WelcomePage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function WelcomePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <WelcomeContent />
+    </Suspense>
   )
 }
