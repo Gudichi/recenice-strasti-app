@@ -16,26 +16,42 @@ export default function Dashboard() {
     <div className="min-h-screen bg-brand-bg">
       <BrandHeader />
       
-      <main className="py-12">
+      <main className="py-16">
         <Container maxWidth="xl">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <h1 className="font-display text-5xl lg:text-6xl text-brand-accent mb-6">
-              Dobrodošla, <span className="text-brand-primary">Karlo</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Nastavi svoje putovanje kroz program Rečenice Strasti i otkrij snagu riječi u intimnosti
-            </p>
-          </div>
+          {/* Hero Card */}
+          <Card className="mb-20 bg-gradient-to-br from-brand-bg via-white to-brand-secondary/8 border-brand-primary/10 shadow-xl overflow-hidden">
+            <CardContent className="p-12 lg:p-16 text-center relative">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute top-10 right-10 w-32 h-32 bg-brand-primary rounded-full blur-3xl"></div>
+                <div className="absolute bottom-10 left-10 w-24 h-24 bg-brand-secondary rounded-full blur-2xl"></div>
+              </div>
+              
+              <div className="relative z-10">
+                <h1 className="font-display text-5xl lg:text-6xl text-brand-accent mb-6 leading-tight">
+                  Dobrodošla, <span className="text-brand-primary">Karlo</span>
+                </h1>
+                <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
+                  Nastavi svoje putovanje kroz program Rečenice Strasti i otkrij snagu riječi u intimnosti
+                </p>
+                
+                <CTAButton asChild size="xl" className="shadow-lg hover:shadow-xl">
+                  <Link href={routes.lesson('modul-1', 'lekcija-2')}>
+                    Nastavi gdje si stala →
+                  </Link>
+                </CTAButton>
+              </div>
+            </CardContent>
+          </Card>
 
-          {/* Progress Section */}
-          <Card className="mb-16 bg-gradient-to-br from-white to-brand-secondary/5 border-brand-primary/20">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <h2 className="font-display text-3xl text-brand-accent mb-2">
+          {/* Progress Card */}
+          <Card className="mb-20 bg-white/80 backdrop-blur-sm border-brand-primary/20 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-8 lg:p-10">
+              <div className="text-center mb-8">
+                <h2 className="font-display text-3xl lg:text-4xl text-brand-accent mb-3">
                   Vaš napredak
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-lg text-gray-600">
                   Uspješno ste završili {userProgress}% programa
                 </p>
               </div>
@@ -46,31 +62,32 @@ export default function Dashboard() {
                 className="mb-8"
               />
               
-              <div className="text-center">
-                <CTAButton asChild size="xl">
-                  <Link href={routes.lesson('modul-1', 'lekcija-2')}>
-                    Nastavi gdje si stala →
-                  </Link>
-                </CTAButton>
-              </div>
+              <p className="text-center text-brand-primary font-medium text-lg">
+                💞 Svaka rečenica te vodi dublje u povezanost
+              </p>
             </CardContent>
           </Card>
 
           {/* Current Lesson Card */}
-          <Card className="mb-16 border-brand-primary/30 bg-brand-secondary/5">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-display text-2xl text-brand-accent mb-2">
-                    Lekcija na kojoj si stala
-                  </h3>
-                  <p className="text-gray-600 text-lg">
-                    1.2 Snaga Riječi u Intimnosti
-                  </p>
+          <Card className="mb-20 border-brand-primary/30 bg-gradient-to-r from-brand-secondary/5 to-brand-primary/5 hover:shadow-lg transition-all duration-300">
+            <CardContent className="p-8 lg:p-10">
+              <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center">
+                    <span className="text-2xl">📖</span>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-2xl lg:text-3xl text-brand-accent mb-2">
+                      Lekcija na kojoj si stala
+                    </h3>
+                    <p className="text-gray-600 text-lg">
+                      1.2 Snaga Riječi u Intimnosti
+                    </p>
+                  </div>
                 </div>
-                <CTAButton asChild variant="secondary">
+                <CTAButton asChild variant="secondary" size="lg" className="shadow-md">
                   <Link href={routes.lesson('modul-1', 'lekcija-2')}>
-                    Nastavi
+                    Nastavi lekciju
                   </Link>
                 </CTAButton>
               </div>

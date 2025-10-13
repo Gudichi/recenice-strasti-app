@@ -4,6 +4,7 @@ import { Container } from '@/components/ui/container'
 import { SectionTitle } from '@/components/ui/section-title'
 import { CTAButton } from '@/components/ui/cta-button'
 import { LessonCard } from '@/components/ui/lesson-card'
+import { Card, CardContent } from '@/components/ui/card'
 import { getModule, routes } from '@/lib/content'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -35,39 +36,54 @@ export default async function ModulePage({ params }: ModulePageProps) {
           <BreadcrumbNav items={breadcrumbItems} />
           
           {/* Module Header */}
-          <div className="text-center mb-16">
-            <SectionTitle as="h1" className="text-4xl lg:text-5xl mb-6">
-              {moduleData.title}
-            </SectionTitle>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-              {moduleData.description}
-            </p>
-            <CTAButton asChild size="xl">
-              <Link href={routes.lesson(slug, moduleData.lessons[0].slug)}>
-                Započni modul →
-              </Link>
-            </CTAButton>
-          </div>
+          <Card className="mb-20 bg-gradient-to-br from-brand-bg via-white to-brand-secondary/8 border-brand-primary/10 shadow-xl overflow-hidden">
+            <CardContent className="p-12 lg:p-16 text-center relative">
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute top-8 right-8 w-24 h-24 bg-brand-primary rounded-full blur-2xl"></div>
+                <div className="absolute bottom-8 left-8 w-20 h-20 bg-brand-secondary rounded-full blur-xl"></div>
+              </div>
+              
+              <div className="relative z-10">
+                <SectionTitle as="h1" className="text-4xl lg:text-6xl mb-8" showUnderline={false}>
+                  {moduleData.title}
+                </SectionTitle>
+                <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
+                  {moduleData.description}
+                </p>
+                <CTAButton asChild size="xl" className="shadow-lg hover:shadow-xl">
+                  <Link href={routes.lesson(slug, moduleData.lessons[0].slug)}>
+                    Započni modul →
+                  </Link>
+                </CTAButton>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Lessons Section */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             <div className="text-center">
-              <h2 className="font-display text-3xl text-brand-accent mb-4">
+              <h2 className="font-display text-3xl lg:text-4xl text-brand-accent mb-6">
                 Lekcije u ovom modulu
               </h2>
-              <div className="w-24 h-1 bg-brand-secondary rounded-full mx-auto"></div>
+              <div className="w-32 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full mx-auto"></div>
             </div>
             
-            <div className="grid gap-6 max-w-4xl mx-auto">
+            <div className="grid gap-8 max-w-5xl mx-auto">
               {moduleData.lessons.map((lesson, index) => (
-                <LessonCard
+                <div 
                   key={lesson.slug}
-                  title={lesson.title}
-                  description="Kliknite za početak lekcije"
-                  href={routes.lesson(slug, lesson.slug)}
-                  duration="15 min"
-                  isCompleted={index === 0} // First lesson completed for demo
-                />
+                  className="transform transition-all duration-300 hover:scale-[1.02]"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <LessonCard
+                    title={lesson.title}
+                    description="Kliknite za početak lekcije"
+                    href={routes.lesson(slug, lesson.slug)}
+                    duration="15 min"
+                    isCompleted={index === 0} // First lesson completed for demo
+                  />
+                </div>
               ))}
             </div>
           </div>
