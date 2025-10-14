@@ -15,7 +15,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
-  const router = useRouter()
+  // const router = useRouter() // Not needed for now
 
   const handleSendCode = async () => {
     if (!email) {
@@ -52,11 +52,13 @@ export default function LoginPage() {
     
     if (error) {
       setError(error.message)
-        } else if (user) {
-          setSuccess('Uspješno ste se prijavili!')
-          // Redirect to dashboard with full page reload to ensure session is picked up by middleware
-          window.location.href = '/'
-        }
+    } else if (user) {
+      setSuccess('Uspješno ste se prijavili!')
+      // Redirect to dashboard
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 1000)
+    }
     
     setLoading(false)
   }

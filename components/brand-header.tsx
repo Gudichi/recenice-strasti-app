@@ -16,11 +16,9 @@ export function BrandHeader() {
   const { user, loading } = useAuth()
   const router = useRouter()
 
-  const handleLogout = async () => {
-    const { error } = await signOut()
-    if (!error) {
-      router.push('/login')
-    }
+  const handleLogout = () => {
+    signOut()
+    router.push('/login')
   }
 
   const getUserInitials = (email: string) => {

@@ -1,48 +1,40 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import { AuthUser, getCurrentUser, onAuthStateChange } from '@/lib/auth'
+import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react'
+import { getCurrentUser, onAuthStateChange, User } from '@/lib/auth'
 
 interface AuthContextType {
-  user: AuthUser | null
+  user: User | null
   loading: boolean
-  error: string | null
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  error: null
-})
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null)
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Provjeri postojeću sesiju
-    getCurrentUser().then(({ user, error }) => {
-      if (error) {
-        setError(error.message)
-      } else {
-        setUser(user)
-      }
-      setLoading(false)
-    })
+    // Dohvati trenutnog korisnika
+    const currentUser = getCurrentUser()
+    setUser(currentUser)
+    setLoading(false)
 
     // Slušaj promjene auth stanja
-    const { data: { subscription } } = onAuthStateChange((user) => {
-      setUser(user)
+    const { unsubscribe } = onAuthStateChange((newUser) => {
+      setUser(newUser)
       setLoading(false)
-      setError(null)
     })
 
-    return () => subscription.unsubscribe()
+    return () => {
+      unsubscribe()
+    }
   }, [])
 
+  const contextValue = useMemo(() => ({ user, loading }), [user, loading])
+
   return (
-    <AuthContext.Provider value={{ user, loading, error }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   )
@@ -50,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext)
-  if (!context) {
+  if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider')
   }
   return context
