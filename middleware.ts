@@ -35,15 +35,8 @@ export async function middleware(req: NextRequest) {
     }
   )
 
-  // Get current user
-  const { data: { user } } = await supabase.auth.getUser()
-
-  // Debug logging
-  console.log('Middleware Debug:', {
-    pathname: req.nextUrl.pathname,
-    hasUser: !!user,
-    userEmail: user?.email
-  })
+  // Get current session
+  const { data: { session } } = await supabase.auth.getSession()
 
   // Public routes that don't require authentication
   const publicRoutes = ['/login', '/welcome']
@@ -60,14 +53,14 @@ export async function middleware(req: NextRequest) {
   // Allow access to public routes
   if (isPublicRoute) {
     // Redirect authenticated users from login/welcome to dashboard
-    if ((req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/welcome') && user) {
+    if ((req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/welcome') && session) {
       return NextResponse.redirect(new URL('/', req.url))
     }
     return response
   }
 
   // Redirect unauthenticated users from protected routes to login
-  if (isProtectedRoute && !user) {
+  if (isProtectedRoute && !session) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
