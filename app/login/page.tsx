@@ -55,9 +55,7 @@ export default function LoginPage() {
         } else if (user) {
           setSuccess('Uspješno ste se prijavili!')
           // Redirect to dashboard with full page reload to ensure session is picked up by middleware
-          setTimeout(() => {
-            window.location.href = '/'
-          }, 1000)
+          window.location.href = '/'
         }
     
     setLoading(false)

@@ -38,6 +38,13 @@ export async function middleware(req: NextRequest) {
   // Get current user
   const { data: { user } } = await supabase.auth.getUser()
 
+  // Debug logging
+  console.log('Middleware Debug:', {
+    pathname: req.nextUrl.pathname,
+    hasUser: !!user,
+    userEmail: user?.email
+  })
+
   // Public routes that don't require authentication
   const publicRoutes = ['/login', '/welcome']
   const isPublicRoute = publicRoutes.some(route => 
