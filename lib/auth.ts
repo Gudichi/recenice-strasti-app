@@ -1,4 +1,4 @@
-import { getSupabaseClient } from './supabase'
+import { supabase } from './supabase'
 
 export interface AuthUser {
   id: string
@@ -16,8 +16,7 @@ export interface AuthError {
  */
 export async function sendOTP(email: string): Promise<{ error: AuthError | null }> {
   try {
-    const supabase = getSupabaseClient()
-    const { error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase().auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
@@ -52,8 +51,7 @@ export async function verifyOTP(email: string, token: string): Promise<{
   error: AuthError | null 
 }> {
   try {
-    const supabase = getSupabaseClient()
-    const { data, error } = await supabase.auth.verifyOtp({
+    const { data, error } = await supabase().auth.verifyOtp({
       email,
       token,
       type: 'email'
@@ -106,8 +104,7 @@ export async function getCurrentUser(): Promise<{
   error: AuthError | null
 }> {
   try {
-    const supabase = getSupabaseClient()
-    const { data: { user }, error } = await supabase.auth.getUser()
+    const { data: { user }, error } = await supabase().auth.getUser()
 
     if (error) {
       return {
@@ -150,8 +147,7 @@ export async function getCurrentUser(): Promise<{
  */
 export async function signOut(): Promise<{ error: AuthError | null }> {
   try {
-    const supabase = getSupabaseClient()
-    const { error } = await supabase.auth.signOut()
+    const { error } = await supabase().auth.signOut()
 
     if (error) {
       return {
@@ -177,8 +173,7 @@ export async function signOut(): Promise<{ error: AuthError | null }> {
  * Slušaj promjene auth stanja
  */
 export function onAuthStateChange(callback: (user: AuthUser | null) => void) {
-  const supabase = getSupabaseClient()
-  return supabase.auth.onAuthStateChange((event, session) => {
+  return supabase().auth.onAuthStateChange((event, session) => {
     if (session?.user) {
       callback({
         id: session.user.id,

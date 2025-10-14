@@ -35,5 +35,5 @@ export function getSupabaseAdminClient() {
   return _supabaseAdmin;
 }
 
-export const supabase = getSupabaseClient();
-export const supabaseAdmin = getSupabaseAdminClient();
+// Export functions instead of instances to prevent multiple instances
+export { getSupabaseClient as supabase, getSupabaseAdminClient as supabaseAdmin };
