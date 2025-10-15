@@ -7,37 +7,15 @@ import { ProgressBar } from '@/components/ui/progress-bar'
 import { CTAButton } from '@/components/ui/cta-button'
 import { ModuleCard } from '@/components/ui/module-card'
 import { Card, CardContent } from '@/components/ui/card'
-import { useAuth } from '@/components/providers/auth-provider'
-import { useEffect } from 'react'
+// import { useAuth } from '@/components/providers/auth-provider'
+// import { useEffect } from 'react'
 import Link from 'next/link'
 import { getAllModules, routes } from '@/lib/content'
 
 export default function Dashboard() {
-  const { user, loading } = useAuth()
+  // const { user, loading } = useAuth()
 
-  useEffect(() => {
-    // Redirect to login if not authenticated
-    if (!loading && !user) {
-      window.location.href = '/login'
-    }
-  }, [user, loading])
-
-  // Show loading state
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Učitavanje...</p>
-        </div>
-      </div>
-    )
-  }
-
-  // Don't render if not authenticated
-  if (!user) {
-    return null
-  }
+  // Remove authentication check - direct access to app
   const modules = getAllModules()
   const userProgress = 42 // TODO: Get from user data
 
@@ -57,8 +35,8 @@ export default function Dashboard() {
               </div>
               
               <div className="relative z-10">
-                    <h1 className="font-display text-5xl lg:text-6xl text-brand-accent mb-6 leading-tight">
-                      Dobrodošla, <span className="text-brand-primary">{user?.name || 'Korisnice'}</span>
+                    <h1 className="font-display text-5xl lg:text-6xl text-[#2C2C2C] mb-6 leading-tight">
+                      Dobrodošla, <span className="text-[#FF6B9D]">Korisnice</span>
                     </h1>
                 <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
                   Nastavi svoje putovanje kroz program Rečenice Strasti i otkrij snagu riječi u intimnosti

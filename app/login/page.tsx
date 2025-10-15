@@ -48,16 +48,16 @@ export default function LoginPage() {
             <div className="order-2 lg:order-1">
               <Card className="max-w-md mx-auto lg:mx-0 bg-white/80 backdrop-blur-sm border-brand-primary/20 shadow-xl">
                 <CardHeader className="text-center pb-6">
-                  <SectionTitle as="h1" className="text-3xl mb-4" showUnderline={false}>
+                  <SectionTitle as="h1" className="text-3xl mb-4 text-[#2C2C2C]" showUnderline={false}>
                     Prijavi se
                   </SectionTitle>
-                  <CardDescription className="text-gray-600 text-base">
+                  <CardDescription className="text-[#2C2C2C] text-base">
                     Unesite svoju email adresu i ime za pristup programu
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="name" className="block text-sm font-medium text-[#2C2C2C]">
                       Vaše ime
                     </label>
                     <Input
@@ -66,12 +66,12 @@ export default function LoginPage() {
                       placeholder="Vaše ime"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="h-12 text-base border-gray-300 focus:border-brand-cta focus:ring-brand-cta/20"
+                      className="h-12 text-base border-[#F5E5E0] focus:border-[#FFDAB9] focus:ring-[#FFDAB9]/20"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="email" className="block text-sm font-medium text-[#2C2C2C]">
                       Email adresa
                     </label>
                     <Input
@@ -80,7 +80,7 @@ export default function LoginPage() {
                       placeholder="vas@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="h-12 text-base border-gray-300 focus:border-brand-cta focus:ring-brand-cta/20"
+                      className="h-12 text-base border-[#F5E5E0] focus:border-[#FFDAB9] focus:ring-[#FFDAB9]/20"
                     />
                   </div>
                   
@@ -110,14 +110,14 @@ export default function LoginPage() {
 
             {/* Right Side - Visual */}
             <div className="order-1 lg:order-2 text-center lg:text-left">
-              <h2 className="font-display text-4xl lg:text-5xl text-brand-accent leading-tight mb-6">
-                Dobrodošla u <span className="text-brand-primary">Rečenice Strasti</span>
+              <h2 className="font-display text-4xl lg:text-5xl text-[#2C2C2C] leading-tight mb-6">
+                Dobrodošla u <span className="text-[#FF6B9D]">Rečenice Strasti</span>
               </h2>
-              <p className="text-lg lg:text-xl text-gray-700 max-w-lg mx-auto lg:mx-0 leading-relaxed mb-8">
+              <p className="text-lg lg:text-xl text-[#2C2C2C] max-w-lg mx-auto lg:mx-0 leading-relaxed mb-8">
                 Otkrij snagu riječi u intimnosti i transformiraj svoju vezu kroz sofisticirane komunikacijske tehnike.
               </p>
-              <div className="text-brand-primary text-4xl mb-6">💞</div>
-              <p className="font-display text-2xl lg:text-3xl text-brand-accent italic max-w-lg mx-auto lg:mx-0">
+              <div className="text-[#FF6B9D] text-4xl mb-6">💞</div>
+              <p className="font-display text-2xl lg:text-3xl text-[#2C2C2C] italic max-w-lg mx-auto lg:mx-0">
                 &ldquo;Riječi su most između dva srca&rdquo;
               </p>
             </div>
