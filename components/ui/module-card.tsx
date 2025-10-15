@@ -41,7 +41,7 @@ export function ModuleCard({
         <CardHeader className="pb-4 relative z-10">
           <div className="flex items-start justify-between">
             <div className="space-y-3">
-              <h3 className="font-display text-xl lg:text-2xl text-brand-accent group-hover:text-brand-primary transition-colors duration-300">
+              <h3 className="font-display text-xl lg:text-2xl text-[#8B4566] group-hover:text-[#FF6B9D] transition-colors duration-300">
                 {title}
               </h3>
               {badge && (
@@ -50,8 +50,8 @@ export function ModuleCard({
                   className={cn(
                     "text-xs font-semibold px-3 py-1",
                     isBonus 
-                      ? "bg-brand-secondary/20 text-brand-accent border-brand-secondary/30"
-                      : "bg-brand-cta text-white shadow-md"
+                      ? "bg-[#8B4566]/20 text-[#8B4566] border-[#8B4566]/30"
+                      : "bg-[#FFDAB9] text-[#2C2C2C] shadow-md"
                   )}
                 >
                   {badge}
@@ -67,21 +67,21 @@ export function ModuleCard({
             )}
           </div>
         </CardHeader>
-        <CardContent className="pt-0 relative z-10">
-          <p className="text-gray-600 leading-relaxed mb-4 text-sm lg:text-base">
-            {description}
-          </p>
-          {lessonCount !== undefined && (
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-brand-accent font-semibold">
-                {lessonCount} lekcija
-              </div>
-              <div className="text-brand-primary group-hover:translate-x-1 transition-transform duration-300">
-                →
-              </div>
-            </div>
-          )}
-        </CardContent>
+            <CardContent className="pt-0 relative z-10">
+              <p className="font-body text-[#2C2C2C] leading-relaxed mb-4 text-sm lg:text-base">
+                {description}
+              </p>
+              {lessonCount !== undefined && (
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-[#8B4566] font-heading font-semibold">
+                    {lessonCount} lekcija
+                  </div>
+                  <div className="text-[#FF6B9D] group-hover:translate-x-1 transition-transform duration-300">
+                    →
+                  </div>
+                </div>
+              )}
+            </CardContent>
       </Card>
     </Link>
   )

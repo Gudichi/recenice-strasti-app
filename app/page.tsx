@@ -52,16 +52,16 @@ export default function Dashboard() {
           </Card>
 
           {/* Progress Card */}
-          <Card className="mb-20 bg-white/80 backdrop-blur-sm border-brand-primary/20 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-8 lg:p-10">
-              <div className="text-center mb-8">
-                <h2 className="font-display text-3xl lg:text-4xl text-brand-accent mb-3">
-                  Vaš napredak
-                </h2>
-                <p className="text-lg text-gray-600">
-                  Uspješno ste završili {userProgress}% programa
-                </p>
-              </div>
+              <Card className="mb-20 bg-white border-[#F5E5E0] shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-8 lg:p-10">
+                  <div className="text-center mb-8">
+                    <h2 className="font-display text-3xl lg:text-4xl text-[#8B4566] mb-3">
+                      Vaš napredak
+                    </h2>
+                    <p className="font-body text-lg text-[#2C2C2C]">
+                      Uspješno ste završili {userProgress}% programa
+                    </p>
+                  </div>
               
               <ProgressBar 
                 value={userProgress} 
@@ -69,25 +69,25 @@ export default function Dashboard() {
                 className="mb-8"
               />
               
-              <p className="text-center text-brand-primary font-medium text-lg">
-                💞 Svaka rečenica te vodi dublje u povezanost
-              </p>
+                  <p className="text-center text-[#FF6B9D] font-heading font-medium text-lg">
+                    💞 Svaka rečenica te vodi dublje u povezanost
+                  </p>
             </CardContent>
           </Card>
 
           {/* Current Lesson Card */}
-          <Card className="mb-20 border-brand-primary/30 bg-gradient-to-r from-brand-secondary/5 to-brand-primary/5 hover:shadow-lg transition-all duration-300">
+          <Card className="mb-20 border-[#F5E5E0] bg-white hover:shadow-lg transition-all duration-300">
             <CardContent className="p-8 lg:p-10">
               <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                 <div className="flex items-center space-x-4">
-                  <div className="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center">
+                  <div className="w-16 h-16 bg-[#FF6B9D]/10 rounded-2xl flex items-center justify-center">
                     <span className="text-2xl">📖</span>
                   </div>
                   <div>
-                    <h3 className="font-display text-2xl lg:text-3xl text-brand-accent mb-2">
+                    <h3 className="font-display text-2xl lg:text-3xl text-[#8B4566] mb-2">
                       Lekcija na kojoj si stala
                     </h3>
-                    <p className="text-gray-600 text-lg">
+                    <p className="font-body text-[#2C2C2C] text-lg">
                       1.2 Snaga Riječi u Intimnosti
                     </p>
                   </div>
@@ -107,7 +107,7 @@ export default function Dashboard() {
               Rečenice Strasti program
             </SectionTitle>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 lg:gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
               {modules.map((module, index) => (
                 <ModuleCard
                   key={module.slug}

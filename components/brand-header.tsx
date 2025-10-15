@@ -58,11 +58,11 @@ export function BrandHeader() {
       <Container>
         <div className="flex items-center justify-between py-5 lg:py-6">
           {/* Logo */}
-          <div className="flex items-center space-x-4 lg:space-x-6">
-            <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-display text-2xl lg:text-3xl font-bold">R</span>
+          <div className="flex items-center space-x-3 lg:space-x-4">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#8B4566] rounded-full flex items-center justify-center shadow-lg">
+              <span className="text-white font-display text-xl lg:text-2xl font-bold">R</span>
             </div>
-            <h1 className="font-display text-3xl lg:text-4xl xl:text-5xl text-brand-accent font-semibold tracking-tight">
+            <h1 className="font-display text-xl lg:text-2xl text-[#8B4566] font-semibold tracking-tight">
               Rečenice Strasti
             </h1>
           </div>
