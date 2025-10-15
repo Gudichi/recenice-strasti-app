@@ -20,25 +20,25 @@ export default function Dashboard() {
   const userProgress = 42 // TODO: Get from user data
 
   return (
-    <div className="min-h-screen bg-brand-bg">
+    <div className="min-h-screen bg-[#FFF5EE]">
       <BrandHeader />
       
       <main className="py-16 lg:py-24">
         <Container maxWidth="6xl">
           {/* Hero Card */}
-          <Card className="mb-20 bg-gradient-to-br from-brand-bg via-white to-brand-secondary/8 border-brand-primary/10 shadow-xl overflow-hidden">
+              <Card className="mb-20 bg-white border-[#F5E5E0] shadow-xl overflow-hidden">
             <CardContent className="p-12 lg:p-16 text-center relative">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-10 right-10 w-32 h-32 bg-brand-primary rounded-full blur-3xl"></div>
-                <div className="absolute bottom-10 left-10 w-24 h-24 bg-brand-secondary rounded-full blur-2xl"></div>
+                <div className="absolute top-10 right-10 w-32 h-32 bg-[#FF6B9D] rounded-full blur-3xl"></div>
+                <div className="absolute bottom-10 left-10 w-24 h-24 bg-[#8B4566] rounded-full blur-2xl"></div>
               </div>
               
               <div className="relative z-10">
-                    <h1 className="font-display text-5xl lg:text-6xl text-[#2C2C2C] mb-6 leading-tight">
+                    <h1 className="font-display text-5xl lg:text-6xl text-[#8B4566] mb-6 leading-tight">
                       Dobrodošla, <span className="text-[#FF6B9D]">Korisnice</span>
                     </h1>
-                <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
+                <p className="font-body text-xl lg:text-2xl text-[#2C2C2C] max-w-3xl mx-auto leading-relaxed mb-10">
                   Nastavi svoje putovanje kroz program Rečenice Strasti i otkrij snagu riječi u intimnosti
                 </p>
                 
