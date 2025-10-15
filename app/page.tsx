@@ -57,9 +57,9 @@ export default function Dashboard() {
               </div>
               
               <div className="relative z-10">
-                <h1 className="font-display text-5xl lg:text-6xl text-brand-accent mb-6 leading-tight">
-                  Dobrodošla, <span className="text-brand-primary">Karlo</span>
-                </h1>
+                    <h1 className="font-display text-5xl lg:text-6xl text-brand-accent mb-6 leading-tight">
+                      Dobrodošla, <span className="text-brand-primary">{user?.name || 'Korisnice'}</span>
+                    </h1>
                 <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
                   Nastavi svoje putovanje kroz program Rečenice Strasti i otkrij snagu riječi u intimnosti
                 </p>

@@ -10,16 +10,25 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-playfair)", "serif"],
-        sans: ["var(--font-poppins)", "sans-serif"],
+        display: ["var(--font-playfair)", "serif"], // H1 only - elegance + authority
+        heading: ["var(--font-poppins)", "sans-serif"], // H2-H6 - modern, friendly
+        body: ["var(--font-inter)", "sans-serif"], // Body text - maximum readability
+        sans: ["var(--font-inter)", "sans-serif"], // Default sans-serif
       },
       colors: {
         brand: {
-          primary: "#EF798A",
-          secondary: "#F7A9A8", 
-          accent: "#64113F",
-          bg: "#FDFDFD",
-          cta: "#1C7C7D",
+          primary: "#FF6B9D", // Hot Pink - main brand color
+          "primary-light": "#FFB3C6", // For hover states, backgrounds
+          "primary-dark": "#E5578A", // For pressed states
+          cta: "#FFDAB9", // Peach/Coral - CTA buttons and highlights
+          "cta-hover": "#FFC89A", // CTA hover state
+          secondary: "#8B4566", // Burgundy - authority, testimonials
+          "secondary-light": "#A05577", // Secondary hover
+          accent: "#FFF5EE", // Seashell - warm neutral backgrounds
+          "border-light": "#F5E5E0", // Subtle borders
+          success: "#A8D5BA", // Progress indicators
+          text: "#2C2C2C", // Dark gray - main body text
+          bg: "#FFFFFF", // White background
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

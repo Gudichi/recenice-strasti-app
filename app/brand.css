@@ -1,42 +1,73 @@
-/* Brand Colors - Explicit CSS for production */
+/* New Brand Colors - Explicit CSS for production */
 @layer base {
   /* Background Colors */
-  .bg-brand-primary { background-color: #EF798A !important; }
-  .bg-brand-secondary { background-color: #F7A9A8 !important; }
-  .bg-brand-accent { background-color: #64113F !important; }
-  .bg-brand-bg { background-color: #FDFDFD !important; }
-  .bg-brand-cta { background-color: #1C7C7D !important; }
+  .bg-brand-primary { background-color: #FF6B9D !important; }
+  .bg-brand-primary-light { background-color: #FFB3C6 !important; }
+  .bg-brand-primary-dark { background-color: #E5578A !important; }
+  .bg-brand-cta { background-color: #FFDAB9 !important; }
+  .bg-brand-cta-hover { background-color: #FFC89A !important; }
+  .bg-brand-secondary { background-color: #8B4566 !important; }
+  .bg-brand-secondary-light { background-color: #A05577 !important; }
+  .bg-brand-accent { background-color: #FFF5EE !important; }
+  .bg-brand-border-light { background-color: #F5E5E0 !important; }
+  .bg-brand-success { background-color: #A8D5BA !important; }
+  .bg-brand-text { background-color: #2C2C2C !important; }
+  .bg-brand-bg { background-color: #FFFFFF !important; }
 
   /* Text Colors */
-  .text-brand-primary { color: #EF798A !important; }
-  .text-brand-secondary { color: #F7A9A8 !important; }
-  .text-brand-accent { color: #64113F !important; }
-  .text-brand-bg { color: #FDFDFD !important; }
-  .text-brand-cta { color: #1C7C7D !important; }
+  .text-brand-primary { color: #FF6B9D !important; }
+  .text-brand-primary-light { color: #FFB3C6 !important; }
+  .text-brand-primary-dark { color: #E5578A !important; }
+  .text-brand-cta { color: #FFDAB9 !important; }
+  .text-brand-cta-hover { color: #FFC89A !important; }
+  .text-brand-secondary { color: #8B4566 !important; }
+  .text-brand-secondary-light { color: #A05577 !important; }
+  .text-brand-accent { color: #FFF5EE !important; }
+  .text-brand-border-light { color: #F5E5E0 !important; }
+  .text-brand-success { color: #A8D5BA !important; }
+  .text-brand-text { color: #2C2C2C !important; }
+  .text-brand-bg { color: #FFFFFF !important; }
 
   /* Border Colors */
-  .border-brand-primary { border-color: #EF798A !important; }
-  .border-brand-secondary { border-color: #F7A9A8 !important; }
-  .border-brand-accent { border-color: #64113F !important; }
-  .border-brand-cta { border-color: #1C7C7D !important; }
+  .border-brand-primary { border-color: #FF6B9D !important; }
+  .border-brand-primary-light { border-color: #FFB3C6 !important; }
+  .border-brand-primary-dark { border-color: #E5578A !important; }
+  .border-brand-cta { border-color: #FFDAB9 !important; }
+  .border-brand-cta-hover { border-color: #FFC89A !important; }
+  .border-brand-secondary { border-color: #8B4566 !important; }
+  .border-brand-secondary-light { border-color: #A05577 !important; }
+  .border-brand-accent { border-color: #FFF5EE !important; }
+  .border-brand-border-light { border-color: #F5E5E0 !important; }
+  .border-brand-success { border-color: #A8D5BA !important; }
+  .border-brand-text { border-color: #2C2C2C !important; }
+  .border-brand-bg { border-color: #FFFFFF !important; }
 
   /* Hover States */
-  .hover\:bg-brand-primary:hover { background-color: #EF798A !important; }
-  .hover\:bg-brand-secondary:hover { background-color: #F7A9A8 !important; }
-  .hover\:bg-brand-cta:hover { background-color: #1C7C7D !important; }
-  .hover\:text-brand-primary:hover { color: #EF798A !important; }
-  .hover\:text-brand-accent:hover { color: #64113F !important; }
-  .hover\:border-brand-primary:hover { border-color: #EF798A !important; }
-  .hover\:border-brand-cta:hover { border-color: #1C7C7D !important; }
+  .hover\:bg-brand-primary:hover { background-color: #FF6B9D !important; }
+  .hover\:bg-brand-primary-light:hover { background-color: #FFB3C6 !important; }
+  .hover\:bg-brand-primary-dark:hover { background-color: #E5578A !important; }
+  .hover\:bg-brand-cta:hover { background-color: #FFDAB9 !important; }
+  .hover\:bg-brand-cta-hover:hover { background-color: #FFC89A !important; }
+  .hover\:bg-brand-secondary:hover { background-color: #8B4566 !important; }
+  .hover\:bg-brand-secondary-light:hover { background-color: #A05577 !important; }
+  .hover\:bg-brand-accent:hover { background-color: #FFF5EE !important; }
+  .hover\:bg-brand-success:hover { background-color: #A8D5BA !important; }
+  .hover\:text-brand-primary:hover { color: #FF6B9D !important; }
+  .hover\:text-brand-secondary:hover { color: #8B4566 !important; }
+  .hover\:text-brand-accent:hover { color: #FFF5EE !important; }
+  .hover\:border-brand-primary:hover { border-color: #FF6B9D !important; }
+  .hover\:border-brand-cta:hover { border-color: #FFDAB9 !important; }
 
   /* Gradient Colors */
-  .from-brand-primary { --tw-gradient-from: #EF798A !important; }
-  .to-brand-secondary { --tw-gradient-to: #F7A9A8 !important; }
-  .from-brand-secondary { --tw-gradient-from: #F7A9A8 !important; }
-  .to-brand-primary { --tw-gradient-to: #EF798A !important; }
+  .from-brand-primary { --tw-gradient-from: #FF6B9D !important; }
+  .to-brand-cta { --tw-gradient-to: #FFDAB9 !important; }
+  .from-brand-cta { --tw-gradient-from: #FFDAB9 !important; }
+  .to-brand-primary { --tw-gradient-to: #FF6B9D !important; }
+  .from-brand-secondary { --tw-gradient-from: #8B4566 !important; }
+  .to-brand-secondary-light { --tw-gradient-to: #A05577 !important; }
 
   /* Ring Colors */
-  .ring-brand-primary { --tw-ring-color: #EF798A !important; }
-  .ring-brand-secondary { --tw-ring-color: #F7A9A8 !important; }
-  .ring-brand-cta { --tw-ring-color: #1C7C7D !important; }
+  .ring-brand-primary { --tw-ring-color: #FF6B9D !important; }
+  .ring-brand-secondary { --tw-ring-color: #8B4566 !important; }
+  .ring-brand-cta { --tw-ring-color: #FFDAB9 !important; }
 }

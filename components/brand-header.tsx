@@ -21,8 +21,11 @@ export function BrandHeader() {
     router.push('/login')
   }
 
-  const getUserInitials = (email: string) => {
-    return email.split('@')[0].substring(0, 2).toUpperCase()
+  const getUserInitials = (user: { name?: string; email?: string }) => {
+    if (user?.name) {
+      return user.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase()
+    }
+    return user?.email?.split('@')[0].substring(0, 2).toUpperCase() || 'U'
   }
 
   if (loading) {
@@ -69,7 +72,7 @@ export function BrandHeader() {
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer ring-2 ring-brand-secondary/30 hover:ring-brand-primary/50 transition-all duration-300 hover:scale-105 w-10 h-10 lg:w-12 lg:h-12">
                 <AvatarFallback className="bg-gradient-to-br from-brand-secondary to-brand-primary text-white font-semibold text-lg lg:text-xl">
-                  {getUserInitials(user.email)}
+                  {getUserInitials(user)}
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>

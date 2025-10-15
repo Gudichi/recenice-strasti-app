@@ -1,40 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand Colors - Explicit definitions */
-  --brand-primary: #EF798A;
-  --brand-secondary: #F7A9A8;
-  --brand-accent: #64113F;
-  --brand-bg: #FDFDFD;
-  --brand-cta: #1C7C7D;
+  /* New Brand Colors - Explicit definitions */
+  --brand-primary: #FF6B9D;        /* Hot Pink - main brand color */
+  --brand-primary-light: #FFB3C6;  /* For hover states, backgrounds */
+  --brand-primary-dark: #E5578A;   /* For pressed states */
+  --brand-cta: #FFDAB9;            /* Peach/Coral - CTA buttons and highlights */
+  --brand-cta-hover: #FFC89A;      /* CTA hover state */
+  --brand-secondary: #8B4566;      /* Burgundy - authority, testimonials */
+  --brand-secondary-light: #A05577; /* Secondary hover */
+  --brand-accent: #FFF5EE;         /* Seashell - warm neutral backgrounds */
+  --brand-border-light: #F5E5E0;   /* Subtle borders */
+  --brand-success: #A8D5BA;        /* Progress indicators */
+  --brand-text: #2C2C2C;           /* Dark gray - main body text */
+  --brand-bg: #FFFFFF;             /* White background */
   
   /* Tailwind Brand Color Mappings */
-  --color-brand-primary: #EF798A;
-  --color-brand-secondary: #F7A9A8;
-  --color-brand-accent: #64113F;
-  --color-brand-bg: #FDFDFD;
-  --color-brand-cta: #1C7C7D;
+  --color-brand-primary: #FF6B9D;
+  --color-brand-primary-light: #FFB3C6;
+  --color-brand-primary-dark: #E5578A;
+  --color-brand-cta: #FFDAB9;
+  --color-brand-cta-hover: #FFC89A;
+  --color-brand-secondary: #8B4566;
+  --color-brand-secondary-light: #A05577;
+  --color-brand-accent: #FFF5EE;
+  --color-brand-border-light: #F5E5E0;
+  --color-brand-success: #A8D5BA;
+  --color-brand-text: #2C2C2C;
+  --color-brand-bg: #FFFFFF;
 
-  /* Light Theme Variables */
-  --background: #FDFDFD;
-  --foreground: #111111;
+  /* Shadcn/ui Variables */
+  --background: #FFFFFF;
+  --foreground: #2C2C2C;
   --card: #ffffff;
-  --card-foreground: #111111;
+  --card-foreground: #2C2C2C;
   --popover: #ffffff;
-  --popover-foreground: #111111;
-  --primary: #1C7C7D;
+  --popover-foreground: #2C2C2C;
+  --primary: #FF6B9D;
   --primary-foreground: #ffffff;
-  --secondary: #EF798A;
+  --secondary: #8B4566;
   --secondary-foreground: #ffffff;
-  --muted: #f8f9fa;
+  --muted: #F5E5E0;
   --muted-foreground: #6b7280;
-  --accent: #F7A9A8;
-  --accent-foreground: #111111;
+  --accent: #FFF5EE;
+  --accent-foreground: #2C2C2C;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: #1C7C7D;
+  --border: #F5E5E0;
+  --input: #F5E5E0;
+  --ring: #FF6B9D;
   --radius: 1rem;
 }
 

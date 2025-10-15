@@ -15,33 +15,10 @@ export interface AuthError {
   status: number
 }
 
-// Mock email sending - u produkciji bi se koristio pravi email servis
-const mockEmailService = {
-  sendOTP: async (email: string, code: string): Promise<void> => {
-    // Simuliramo email slanje
-    console.log(`📧 OTP kod poslan na ${email}: ${code}`)
-    
-    // U produkciji bi se ovdje slao pravi email
-    // await sendEmail({
-    //   to: email,
-    //   subject: 'Verifikacijski kod - Rečenice Strasti',
-    //   body: `Vaš verifikacijski kod je: ${code}`
-    // })
-  }
-}
-
 // Storage keys
 const STORAGE_KEYS = {
   SESSION: 'recenice_strasti_session',
-  OTP: 'recenice_strasti_otp',
   USER: 'recenice_strasti_user'
-}
-
-/**
- * Generiraj 6-znamenkasti OTP kod
- */
-function generateOTP(): string {
-  return Math.floor(100000 + Math.random() * 900000).toString()
 }
 
 /**
@@ -88,51 +65,9 @@ export function getCurrentUser(): User | null {
 }
 
 /**
- * Pošalji OTP kod na email
+ * Prijavi korisnika s emailom i imenom
  */
-export async function sendOTP(email: string): Promise<{ error: AuthError | null }> {
-  try {
-    // Validacija email-a
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return {
-        error: {
-          message: 'Neispravna email adresa',
-          status: 400
-        }
-      }
-    }
-
-    // Generiraj OTP kod
-    const code = generateOTP()
-    
-    // Spremi OTP kod u localStorage (5 minuta važi)
-    const otpData = {
-      email,
-      code,
-      expiresAt: new Date().getTime() + (5 * 60 * 1000) // 5 minuta
-    }
-    
-    localStorage.setItem(STORAGE_KEYS.OTP, JSON.stringify(otpData))
-    
-    // Pošalji email (mock)
-    await mockEmailService.sendOTP(email, code)
-    
-    return { error: null }
-  } catch {
-    return {
-      error: {
-        message: 'Neočekivana greška pri slanju koda',
-        status: 500
-      }
-    }
-  }
-}
-
-/**
- * Verificiraj OTP kod
- */
-export async function verifyOTP(email: string, code: string): Promise<{ 
+export async function loginWithEmail(email: string, name: string): Promise<{ 
   user: User | null
   error: AuthError | null 
 }> {
@@ -147,89 +82,63 @@ export async function verifyOTP(email: string, code: string): Promise<{
       }
     }
 
-    // Dohvati spremljeni OTP
-    const otpData = localStorage.getItem(STORAGE_KEYS.OTP)
-    if (!otpData) {
+    // Validacija email-a
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
       return {
         user: null,
         error: {
-          message: 'OTP kod nije pronađen. Molimo zatražite novi kod.',
+          message: 'Neispravna email adresa',
           status: 400
         }
       }
     }
 
-    try {
-      const parsedOtp = JSON.parse(otpData)
-      
-      // Provjeri da li je kod istekao
-      if (new Date().getTime() > parsedOtp.expiresAt) {
-        localStorage.removeItem(STORAGE_KEYS.OTP)
-        return {
-          user: null,
-          error: {
-            message: 'OTP kod je istekao. Molimo zatražite novi kod.',
-            status: 400
-          }
-        }
-      }
-
-      // Provjeri email i kod
-      if (parsedOtp.email !== email || parsedOtp.code !== code) {
-        return {
-          user: null,
-          error: {
-            message: 'Neispravan kod',
-            status: 400
-          }
-        }
-      }
-
-      // Kreiraj korisnika
-      const user: User = {
-        id: `user_${Date.now()}`,
-        email,
-        name: email.split('@')[0],
-        createdAt: new Date().toISOString()
-      }
-
-      // Spremi korisnika
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user))
-
-      // Kreiraj session (24 sata važi)
-      const sessionData = {
-        userId: user.id,
-        email: user.email,
-        createdAt: new Date().toISOString(),
-        expiresAt: new Date().getTime() + (24 * 60 * 60 * 1000) // 24 sata
-      }
-      
-      localStorage.setItem(STORAGE_KEYS.SESSION, JSON.stringify(sessionData))
-      
-      // Obriši OTP kod
-      localStorage.removeItem(STORAGE_KEYS.OTP)
-
-      return { user, error: null }
-    } catch {
-      localStorage.removeItem(STORAGE_KEYS.OTP)
+    // Validacija imena
+    if (!name || name.trim().length < 2) {
       return {
         user: null,
         error: {
-          message: 'Neispravni OTP podaci',
+          message: 'Ime mora imati najmanje 2 znaka',
           status: 400
         }
       }
     }
+
+    // Kreiraj korisnika
+    const user: User = {
+      id: `user_${Date.now()}`,
+      email: email.trim(),
+      name: name.trim(),
+      createdAt: new Date().toISOString()
+    }
+
+    // Spremi korisnika
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user))
+
+    // Kreiraj session (24 sata važi)
+    const sessionData = {
+      userId: user.id,
+      email: user.email,
+      createdAt: new Date().toISOString(),
+      expiresAt: new Date().getTime() + (24 * 60 * 60 * 1000) // 24 sata
+    }
+    
+    localStorage.setItem(STORAGE_KEYS.SESSION, JSON.stringify(sessionData))
+
+    return { user, error: null }
   } catch {
     return {
       user: null,
       error: {
-        message: 'Neočekivana greška pri verificiranju koda',
+        message: 'Neočekivana greška pri prijavi',
         status: 500
       }
     }
   }
 }
+
+// OTP funkcije uklonjene - koristimo jednostavan login
 
 /**
  * Odjavi korisnika
@@ -247,7 +156,6 @@ export function signOut(): { error: AuthError | null } {
 
     localStorage.removeItem(STORAGE_KEYS.SESSION)
     localStorage.removeItem(STORAGE_KEYS.USER)
-    localStorage.removeItem(STORAGE_KEYS.OTP)
 
     return { error: null }
   } catch {
