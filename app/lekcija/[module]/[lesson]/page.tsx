@@ -1,21 +1,49 @@
+'use client'
+
 import { BrandHeader } from '@/components/brand-header'
 import { BreadcrumbNav } from '@/components/breadcrumb-nav'
 import { Container } from '@/components/ui/container'
 import { CTAButton } from '@/components/ui/cta-button'
 import { Card, CardContent } from '@/components/ui/card'
+import { useAuth } from '@/components/providers/auth-provider'
+import { useEffect } from 'react'
 import { getLesson, getModule, routes, getAllModules } from '@/lib/content'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { useParams } from 'next/navigation'
 
-interface LessonPageProps {
-  params: Promise<{
-    module: string
-    lesson: string
-  }>
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+interface LessonPageProps {}
 
-export default async function LessonPage({ params }: LessonPageProps) {
-  const { module: moduleSlug, lesson: lessonSlug } = await params
+export default function LessonPage({}: LessonPageProps) {
+  const { user, loading } = useAuth()
+  const params = useParams()
+  const moduleSlug = params.module as string
+  const lessonSlug = params.lesson as string
+
+  useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!loading && !user) {
+      window.location.href = '/login'
+    }
+  }, [user, loading])
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Učitavanje...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render if not authenticated
+  if (!user) {
+    return null
+  }
   const lesson = getLesson(moduleSlug, lessonSlug)
   const moduleData = getModule(moduleSlug)
   const allModules = getAllModules()

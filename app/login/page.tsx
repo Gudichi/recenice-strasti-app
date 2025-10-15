@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/
 import { Input } from '@/components/ui/input'
 import { SectionTitle } from '@/components/ui/section-title'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation' // Not needed
 import { sendOTP, verifyOTP } from '@/lib/auth'
 
 export default function LoginPage() {

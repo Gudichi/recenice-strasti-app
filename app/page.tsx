@@ -1,3 +1,5 @@
+'use client'
+
 import { BrandHeader } from '@/components/brand-header'
 import { Container } from '@/components/ui/container'
 import { SectionTitle } from '@/components/ui/section-title'
@@ -5,10 +7,37 @@ import { ProgressBar } from '@/components/ui/progress-bar'
 import { CTAButton } from '@/components/ui/cta-button'
 import { ModuleCard } from '@/components/ui/module-card'
 import { Card, CardContent } from '@/components/ui/card'
+import { useAuth } from '@/components/providers/auth-provider'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { getAllModules, routes } from '@/lib/content'
 
 export default function Dashboard() {
+  const { user, loading } = useAuth()
+
+  useEffect(() => {
+    // Redirect to login if not authenticated
+    if (!loading && !user) {
+      window.location.href = '/login'
+    }
+  }, [user, loading])
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600">Učitavanje...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Don't render if not authenticated
+  if (!user) {
+    return null
+  }
   const modules = getAllModules()
   const userProgress = 42 // TODO: Get from user data
 
