@@ -56,7 +56,7 @@ export default function ModulePage({}: ModulePageProps) {
   ]
 
   return (
-    <div className="min-h-screen bg-brand-bg">
+    <div className="min-h-screen bg-[#FFF5EE]">
       <BrandHeader />
       
       <main className="py-12 lg:py-20">
@@ -64,19 +64,19 @@ export default function ModulePage({}: ModulePageProps) {
           <BreadcrumbNav items={breadcrumbItems} />
           
           {/* Module Header */}
-          <Card className="mb-20 bg-gradient-to-br from-brand-bg via-white to-brand-secondary/8 border-brand-primary/10 shadow-xl overflow-hidden">
+          <Card className="mb-20 bg-white border-[#F5E5E0] shadow-xl overflow-hidden">
             <CardContent className="p-12 lg:p-16 text-center relative">
               {/* Background Pattern */}
               <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-8 right-8 w-24 h-24 bg-brand-primary rounded-full blur-2xl"></div>
-                <div className="absolute bottom-8 left-8 w-20 h-20 bg-brand-secondary rounded-full blur-xl"></div>
+                <div className="absolute top-8 right-8 w-24 h-24 bg-[#FF6B9D] rounded-full blur-2xl"></div>
+                <div className="absolute bottom-8 left-8 w-20 h-20 bg-[#8B4566] rounded-full blur-xl"></div>
               </div>
               
               <div className="relative z-10">
-                <SectionTitle as="h1" className="text-4xl lg:text-6xl mb-8" showUnderline={false}>
+                <SectionTitle as="h1" className="font-display text-4xl lg:text-6xl mb-8 text-[#8B4566]" showUnderline={false}>
                   {moduleData.title}
                 </SectionTitle>
-                <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-10">
+                <p className="font-body text-xl lg:text-2xl text-[#2C2C2C] max-w-3xl mx-auto leading-relaxed mb-10">
                   {moduleData.description}
                 </p>
                 <CTAButton asChild size="xl" className="shadow-lg hover:shadow-xl">
@@ -90,12 +90,12 @@ export default function ModulePage({}: ModulePageProps) {
 
           {/* Lessons Section */}
           <div className="space-y-12">
-            <div className="text-center">
-              <h2 className="font-display text-3xl lg:text-4xl text-brand-accent mb-6">
-                Lekcije u ovom modulu
-              </h2>
-              <div className="w-32 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full mx-auto"></div>
-            </div>
+                <div className="text-center">
+                  <h2 className="font-display text-3xl lg:text-4xl text-[#8B4566] mb-6">
+                    Lekcije u ovom modulu
+                  </h2>
+                  <div className="w-32 h-1 bg-gradient-to-r from-[#FF6B9D] to-[#8B4566] rounded-full mx-auto"></div>
+                </div>
             
             <div className="grid gap-8 max-w-6xl mx-auto lg:gap-10">
               {moduleData.lessons.map((lesson, index) => (
@@ -118,7 +118,7 @@ export default function ModulePage({}: ModulePageProps) {
 
           {/* Back to Program */}
           <div className="text-center mt-16">
-            <CTAButton asChild variant="outline">
+            <CTAButton asChild variant="outline" className="border-[#F5E5E0] text-[#2C2C2C] hover:bg-[#FFF5EE] hover:border-[#FF6B9D]">
               <Link href={routes.home}>
                 ← Natrag na program
               </Link>

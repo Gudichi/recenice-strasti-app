@@ -22,24 +22,24 @@ export function LessonCard({
   return (
     <Link href={href} className="group">
       <Card className={cn(
-        "transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer",
+        "transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer bg-white border-[#F5E5E0]",
         {
-          "border-brand-primary/30 bg-brand-secondary/5": isCompleted,
+          "border-[#FF6B9D]/30 bg-[#8B4566]/5": isCompleted,
         },
         className
       )}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="space-y-1">
-              <h3 className="font-medium text-gray-900 group-hover:text-brand-accent transition-colors">
+              <h3 className="font-heading font-medium text-[#2C2C2C] group-hover:text-[#FF6B9D] transition-colors">
                 {title}
               </h3>
               {duration && (
-                <p className="text-sm text-gray-500">{duration}</p>
+                <p className="font-body text-sm text-[#8B4566]">{duration}</p>
               )}
             </div>
             {isCompleted && (
-              <div className="w-5 h-5 bg-brand-accent rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-5 h-5 bg-[#8B4566] rounded-full flex items-center justify-center flex-shrink-0">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
@@ -49,7 +49,7 @@ export function LessonCard({
         </CardHeader>
         {description && (
           <CardContent className="pt-0">
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="font-body text-sm text-[#2C2C2C] leading-relaxed">
               {description}
             </p>
           </CardContent>
