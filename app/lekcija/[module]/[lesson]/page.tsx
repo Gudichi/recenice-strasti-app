@@ -2,11 +2,6 @@
 
 import { LessonHeader } from '@/components/lesson/lesson-header'
 import { LessonFooter } from '@/components/lesson/lesson-footer'
-import { ProblemSolutionBox } from '@/components/lesson/problem-solution-box'
-import { KeyInsightBox } from '@/components/lesson/key-insight-box'
-import { LessonQuote } from '@/components/lesson/lesson-quote'
-import { KeySentencesList } from '@/components/lesson/key-sentences-list'
-import { ActionStepsChecklist } from '@/components/lesson/action-steps-checklist'
 import { useAuth } from '@/components/providers/auth-provider'
 import { useEffect, useState } from 'react'
 import { getLesson, getModule, routes, getAllModules } from '@/lib/content'
@@ -126,56 +121,12 @@ export default function LessonPage({}: LessonPageProps) {
             U ovoj lekciji naučit ćeš kako aktivirati nostalgiju u muškom mozgu i natjerati ga da te kontaktira već danas.
           </p>
           
-          {/* Što ćete naučiti Section */}
-          <div className="mb-12">
-            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mb-6">
-              📍 Što ćete naučiti:
-            </h2>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
-                <span className="font-body text-[#2C2C2C] leading-relaxed">Kako aktivirati nostalgiju u muškom mozgu</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
-                <span className="font-body text-[#2C2C2C] leading-relaxed">Formulirati Zvjezdanu rečenicu</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
-                <span className="font-body text-[#2C2C2C] leading-relaxed">Kada i kako poslati poruku</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Main Content */}
-          <div className="space-y-8">
-            {/* First paragraph with drop cap */}
+          {/* Main Content - Simple Book-like Text */}
+          <div className="prose prose-lg max-w-none">
             <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
-              <span className="float-left text-6xl font-bold text-[#FF6B9D] leading-none mr-3 mt-1 font-display">S</span>
-              vaki muškarac ima nostalgiju za prošlima. To je moćan osjećaj koji ga može natjerati da te kontaktira čak i nakon tjedana tišine. Zvjezdana rečenica je ključ koji otključava tu nostalgiju.
+              Svaki muškarac ima nostalgiju za prošlima. To je moćan osjećaj koji ga može natjerati da te kontaktira čak i nakon tjedana tišine. Zvjezdana rečenica je ključ koji otključava tu nostalgiju.
             </p>
 
-            {/* Problem → Solution Box */}
-            <ProblemSolutionBox
-              problem={{
-                icon: "😟",
-                title: "Problem",
-                description: "Ne javlja ti se danima i ignorira te"
-              }}
-              solution={{
-                icon: "😊💰",
-                title: "Solution",
-                description: "Zvjezdana rečenica ga prisiljava da te kontaktira"
-              }}
-            />
-
-            {/* Key Insight Box */}
-            <KeyInsightBox
-              title="Ključna spoznaja:"
-              content="Dopamin se oslobađa kada muškarac doživljava NOSTALGIJU + POZITIVNO SJEĆANJE povezano s tobom. Kombinacija je ključna!"
-            />
-
-            {/* More content paragraphs */}
             <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
               Nostalgija je moćan osjećaj koji aktivira limbički sustav u mozgu. Kada muškarac doživljava nostalgiju, oslobađa se dopamin - isti neurotransmiter koji se aktivira kada je sretan.
             </p>
@@ -184,40 +135,64 @@ export default function LessonPage({}: LessonPageProps) {
               Zvjezdana rečenica kombinuje nostalgiju s pozitivnim sjećanjem. To stvara moćnu emocionalnu reakciju koja ga natjerava da te kontaktira.
             </p>
 
-            {/* Quote Box */}
-            <LessonQuote
-              quote="Nakon što sam poslala Zvjezdanu rečenicu, zvao me je za 30 minuta. Plakao je i molio za drugu priliku!"
-              author="Una, 34 godine"
-            />
+            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mt-12 mb-6">
+              Što ćete naučiti
+            </h2>
 
-            {/* Key Sentences List */}
-            <KeySentencesList
-              title="📖 Ključne rečenice:"
-              sentences={[
-                "Sinoć sam gledala našu Maricu kako spava i imala je tvoje geste kad pokušava riješiti problem",
-                "Svaka rečenica koja se spominje u našoj vezi me most između dva svijeta",
-                "Riječi su čarobni ključevi koji otključavaju nova iskustva"
-              ]}
-            />
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              U ovoj lekciji naučit ćete kako aktivirati nostalgiju u muškom mozgu, formulirati Zvjezdanu rečenicu i znati kada i kako poslati poruku.
+            </p>
 
-            {/* Action Steps */}
-            <ActionStepsChecklist
-              title="✅ Akcijski koraci:"
-              steps={[
-                {
-                  title: "Prisijeti se pozitivnog sjećanja",
-                  description: "Odaberi trenutak iz vaše veze koji je bio poseban za vas oboje"
-                },
-                {
-                  title: "Formuliraj rečenicu",
-                  description: "Koristi template: 'Sinoć sam [radila X] i prisjetila sam se kako smo [Y zajedno radili]'"
-                },
-                {
-                  title: "Pošalji WhatsApp poruku",
-                  description: "Pošalji između 19-21h kada je najrelaksiraniji"
-                }
-              ]}
-            />
+            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mt-12 mb-6">
+              Ključna spoznaja
+            </h2>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              Dopamin se oslobađa kada muškarac doživljava NOSTALGIJU + POZITIVNO SJEĆANJE povezano s tobom. Kombinacija je ključna!
+            </p>
+
+            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mt-12 mb-6">
+              Ključne rečenice
+            </h2>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              Evo nekoliko primjera Zvjezdanih rečenica koje možete koristiti:
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6 italic">
+              &ldquo;Sinoć sam gledala našu Maricu kako spava i imala je tvoje geste kad pokušava riješiti problem&rdquo;
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6 italic">
+              &ldquo;Svaka rečenica koja se spominje u našoj vezi me most između dva svijeta&rdquo;
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6 italic">
+              &ldquo;Riječi su čarobni ključevi koji otključavaju nova iskustva&rdquo;
+            </p>
+
+            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mt-12 mb-6">
+              Akcijski koraci
+            </h2>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              <strong>1. Prisijeti se pozitivnog sjećanja</strong><br />
+              Odaberi trenutak iz vaše veze koji je bio poseban za vas oboje.
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              <strong>2. Formuliraj rečenicu</strong><br />
+              Koristi template: &ldquo;Sinoć sam [radila X] i prisjetila sam se kako smo [Y zajedno radili]&rdquo;
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              <strong>3. Pošalji WhatsApp poruku</strong><br />
+              Pošalji između 19-21h kada je najrelaksiraniji.
+            </p>
+
+            <blockquote className="font-body text-lg italic text-[#6B6B6B] border-l-4 border-[#8B4566] pl-6 my-8">
+              &ldquo;Nakon što sam poslala Zvjezdanu rečenicu, zvao me je za 30 minuta. Plakao je i molio za drugu priliku!&rdquo; — Una, 34 godine
+            </blockquote>
           </div>
         </article>
       </main>
