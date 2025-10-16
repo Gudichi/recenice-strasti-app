@@ -1,16 +1,17 @@
 'use client'
 
-import { BrandHeader } from '@/components/brand-header'
-import { BreadcrumbNav } from '@/components/breadcrumb-nav'
-import { Container } from '@/components/ui/container'
-import { CTAButton } from '@/components/ui/cta-button'
-import { Card, CardContent } from '@/components/ui/card'
+import { LessonHeader } from '@/components/lesson/lesson-header'
+import { LessonFooter } from '@/components/lesson/lesson-footer'
+import { ProblemSolutionBox } from '@/components/lesson/problem-solution-box'
+import { KeyInsightBox } from '@/components/lesson/key-insight-box'
+import { LessonQuote } from '@/components/lesson/lesson-quote'
+import { KeySentencesList } from '@/components/lesson/key-sentences-list'
+import { ActionStepsChecklist } from '@/components/lesson/action-steps-checklist'
 import { useAuth } from '@/components/providers/auth-provider'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getLesson, getModule, routes, getAllModules } from '@/lib/content'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface LessonPageProps {}
@@ -18,8 +19,11 @@ interface LessonPageProps {}
 export default function LessonPage({}: LessonPageProps) {
   const { user, loading } = useAuth()
   const params = useParams()
+  const router = useRouter()
   const moduleSlug = params.module as string
   const lessonSlug = params.lesson as string
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  const [isCompleted, setIsCompleted] = useState(false)
 
   useEffect(() => {
     // Redirect to login if not authenticated
@@ -31,10 +35,10 @@ export default function LessonPage({}: LessonPageProps) {
   // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-brand-bg flex items-center justify-center">
+      <div className="min-h-screen bg-[#FFF5EE] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Učitavanje...</p>
+          <div className="w-8 h-8 border-4 border-[#FF6B9D] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="font-body text-[#2C2C2C]">Učitavanje...</p>
         </div>
       </div>
     )
@@ -72,116 +76,159 @@ export default function LessonPage({}: LessonPageProps) {
     nextLessonText = 'Prijeđi na sljedeći modul'
   }
 
-  const breadcrumbItems = [
-    { label: moduleData.title, href: routes.module(moduleSlug) },
-    { label: lesson.title }
-  ]
+  // Calculate lesson progress
+  const totalLessons = allModules.reduce((total, module) => total + module.lessons.length, 0)
+  const currentLessonNumber = allModules
+    .slice(0, currentModuleIndex)
+    .reduce((total, module) => total + module.lessons.length, 0) + currentLessonIndex + 1
+
+  // Helper functions
+  const handleBack = () => {
+    router.push(routes.module(moduleSlug))
+  }
+
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked)
+  }
+
+  const handleMarkComplete = () => {
+    setIsCompleted(true)
+  }
 
   return (
-    <div className="min-h-screen bg-brand-bg">
-      <BrandHeader />
+    <div className="min-h-screen bg-[#FFF5EE]">
+      <LessonHeader 
+        currentLesson={currentLessonNumber}
+        totalLessons={totalLessons}
+        onBack={handleBack}
+        isBookmarked={isBookmarked}
+        onBookmark={handleBookmark}
+      />
       
-      <main className="py-12 lg:py-20">
-        <Container maxWidth="4xl">
-          <BreadcrumbNav items={breadcrumbItems} />
+      <main className="pb-32">
+        {/* Content Container - Max 700px width */}
+        <article className="max-w-[700px] mx-auto px-5 py-8">
+          {/* ZADATAK Badge */}
+          <span className="inline-block bg-[#FFD93D] text-[#2C2C2C] font-heading text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded mb-4">
+            ZADATAK
+          </span>
           
-          <Card className="bg-white/90 backdrop-blur-sm border-brand-primary/10 shadow-2xl overflow-hidden">
-            <CardContent className="p-8 lg:p-16">
-              {/* Lesson Header */}
-              <div className="text-center mb-16 relative">
-                <h1 className="font-display text-4xl lg:text-6xl text-brand-accent mb-8 leading-tight">
-                  {lesson.title}
-                </h1>
-                <div className="w-40 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full mx-auto"></div>
-                
-                {/* Decorative Elements */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-brand-secondary/20 rounded-full blur-sm"></div>
-                <div className="absolute -bottom-2 -right-4 w-6 h-6 bg-brand-primary/20 rounded-full blur-sm"></div>
-              </div>
-              
-              {/* Lesson Content */}
-              <div className="prose prose-xl max-w-none">
-                <div className="space-y-8">
-                  {lesson.content.split('\n\n').map((paragraph, index) => {
-                    if (paragraph.startsWith('# ')) {
-                      return (
-                        <div key={index} className="relative">
-                          <h2 className="font-display text-3xl lg:text-4xl text-brand-accent mt-16 mb-8 leading-tight">
-                            {paragraph.replace('# ', '')}
-                          </h2>
-                          <div className="w-16 h-0.5 bg-brand-secondary rounded-full"></div>
-                        </div>
-                      )
-                    } else if (paragraph.startsWith('## ')) {
-                      return (
-                        <h3 key={index} className="font-semibold text-xl lg:text-2xl text-brand-primary mt-12 mb-6 leading-relaxed">
-                          {paragraph.replace('## ', '')}
-                        </h3>
-                      )
-                    } else if (paragraph.startsWith('- ')) {
-                      const listItems = paragraph.split('\n- ').map(item => item.replace(/^-\s*/, ''))
-                      return (
-                        <div key={index} className="bg-gradient-to-r from-brand-secondary/5 to-brand-primary/5 p-6 rounded-2xl border-l-4 border-brand-primary">
-                          <ul className="space-y-3 text-gray-700">
-                            {listItems.map((item, itemIndex) => (
-                              <li key={itemIndex} className="flex items-start space-x-3">
-                                <div className="w-2 h-2 bg-brand-primary rounded-full mt-2 flex-shrink-0"></div>
-                                <span className="leading-relaxed">{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )
-                    } else if (paragraph.includes('"') && paragraph.length < 200) {
-                      // Quote styling
-                      return (
-                        <blockquote key={index} className="relative p-8 bg-gradient-to-r from-brand-secondary/10 to-brand-primary/10 rounded-2xl border-l-4 border-brand-accent my-12">
-                          <p className="text-lg lg:text-xl text-brand-accent font-medium leading-relaxed italic">
-                            {paragraph}
-                          </p>
-                          <div className="absolute top-4 left-4 text-2xl text-brand-primary opacity-50">&ldquo;</div>
-                        </blockquote>
-                      )
-                    } else if (paragraph.trim()) {
-                      return (
-                        <p key={index} className="text-gray-700 leading-relaxed text-lg lg:text-xl mb-6">
-                          {paragraph}
-                        </p>
-                      )
-                    }
-                    return null
-                  })}
-                </div>
-              </div>
-              
-              {/* Sticky Navigation */}
-              <div className="sticky bottom-0 bg-white/95 backdrop-blur-sm border-t border-brand-primary/10 -mx-8 lg:-mx-16 px-8 lg:px-16 py-6 mt-16">
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                  <CTAButton asChild variant="outline" size="lg">
-                    <Link href={routes.module(moduleSlug)}>
-                      ← Natrag na modul
-                    </Link>
-                  </CTAButton>
-                  
-                  {nextLessonHref ? (
-                    <CTAButton asChild size="xl" className="shadow-lg hover:shadow-xl">
-                      <Link href={nextLessonHref}>
-                        {nextLessonText} →
-                      </Link>
-                    </CTAButton>
-                  ) : (
-                    <CTAButton asChild size="xl" className="shadow-lg hover:shadow-xl">
-                      <Link href={routes.home}>
-                        Završi program →
-                      </Link>
-                    </CTAButton>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </Container>
+          {/* Lesson Title */}
+          <h1 className="font-display text-4xl lg:text-5xl text-[#8B4566] mb-6 leading-tight">
+            {lesson.title}
+          </h1>
+          
+          {/* Divider */}
+          <div className="w-16 h-1 bg-[#FF6B9D] rounded-full mb-8"></div>
+          
+          {/* Lesson Intro */}
+          <p className="font-body text-xl italic text-[#6B6B6B] leading-relaxed mb-12">
+            U ovoj lekciji naučit ćeš kako aktivirati nostalgiju u muškom mozgu i natjerati ga da te kontaktira već danas.
+          </p>
+          
+          {/* Što ćete naučiti Section */}
+          <div className="mb-12">
+            <h2 className="font-heading text-2xl font-semibold text-[#2C2C2C] mb-6">
+              📍 Što ćete naučiti:
+            </h2>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
+                <span className="font-body text-[#2C2C2C] leading-relaxed">Kako aktivirati nostalgiju u muškom mozgu</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
+                <span className="font-body text-[#2C2C2C] leading-relaxed">Formulirati Zvjezdanu rečenicu</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[#FF6B9D] rounded-full mt-2 flex-shrink-0"></div>
+                <span className="font-body text-[#2C2C2C] leading-relaxed">Kada i kako poslati poruku</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Main Content */}
+          <div className="space-y-8">
+            {/* First paragraph with drop cap */}
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              <span className="float-left text-6xl font-bold text-[#FF6B9D] leading-none mr-3 mt-1 font-display">S</span>
+              vaki muškarac ima nostalgiju za prošlima. To je moćan osjećaj koji ga može natjerati da te kontaktira čak i nakon tjedana tišine. Zvjezdana rečenica je ključ koji otključava tu nostalgiju.
+            </p>
+
+            {/* Problem → Solution Box */}
+            <ProblemSolutionBox
+              problem={{
+                icon: "😟",
+                title: "Problem",
+                description: "Ne javlja ti se danima i ignorira te"
+              }}
+              solution={{
+                icon: "😊💰",
+                title: "Solution",
+                description: "Zvjezdana rečenica ga prisiljava da te kontaktira"
+              }}
+            />
+
+            {/* Key Insight Box */}
+            <KeyInsightBox
+              title="Ključna spoznaja:"
+              content="Dopamin se oslobađa kada muškarac doživljava NOSTALGIJU + POZITIVNO SJEĆANJE povezano s tobom. Kombinacija je ključna!"
+            />
+
+            {/* More content paragraphs */}
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              Nostalgija je moćan osjećaj koji aktivira limbički sustav u mozgu. Kada muškarac doživljava nostalgiju, oslobađa se dopamin - isti neurotransmiter koji se aktivira kada je sretan.
+            </p>
+
+            <p className="font-body text-lg leading-relaxed text-[#2C2C2C] mb-6">
+              Zvjezdana rečenica kombinuje nostalgiju s pozitivnim sjećanjem. To stvara moćnu emocionalnu reakciju koja ga natjerava da te kontaktira.
+            </p>
+
+            {/* Quote Box */}
+            <LessonQuote
+              quote="Nakon što sam poslala Zvjezdanu rečenicu, zvao me je za 30 minuta. Plakao je i molio za drugu priliku!"
+              author="Una, 34 godine"
+            />
+
+            {/* Key Sentences List */}
+            <KeySentencesList
+              title="📖 Ključne rečenice:"
+              sentences={[
+                "Sinoć sam gledala našu Maricu kako spava i imala je tvoje geste kad pokušava riješiti problem",
+                "Svaka rečenica koja se spominje u našoj vezi me most između dva svijeta",
+                "Riječi su čarobni ključevi koji otključavaju nova iskustva"
+              ]}
+            />
+
+            {/* Action Steps */}
+            <ActionStepsChecklist
+              title="✅ Akcijski koraci:"
+              steps={[
+                {
+                  title: "Prisijeti se pozitivnog sjećanja",
+                  description: "Odaberi trenutak iz vaše veze koji je bio poseban za vas oboje"
+                },
+                {
+                  title: "Formuliraj rečenicu",
+                  description: "Koristi template: 'Sinoć sam [radila X] i prisjetila sam se kako smo [Y zajedno radili]'"
+                },
+                {
+                  title: "Pošalji WhatsApp poruku",
+                  description: "Pošalji između 19-21h kada je najrelaksiraniji"
+                }
+              ]}
+            />
+          </div>
+        </article>
       </main>
+      
+      {/* Lesson Footer */}
+      <LessonFooter
+        nextLessonHref={nextLessonHref}
+        nextLessonText={nextLessonText}
+        onMarkComplete={handleMarkComplete}
+        isCompleted={isCompleted}
+      />
     </div>
   )
 }
